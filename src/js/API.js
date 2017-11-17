@@ -14,6 +14,12 @@ const API = {
     newsong : pxy + '/personalized/newsong',
 
 // 歌单
-    highquality : pxy + '/top/playlist/highquality'
+    highquality : pxy + '/top/playlist/highquality',
+
+// 歌单详情
+    playlistdetail : pxy + '/playlist/detail',
+
+// 搜索
+    search : pxy + '/search'
 };
 export default API;

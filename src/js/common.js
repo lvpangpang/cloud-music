@@ -14,3 +14,14 @@
         document.querySelector('html').style.fontSize = winWidth/640 * 25 + 'px';
     });
 })();
+
+const commonMethods = {
+    param : function(obj) {
+        let str = '';
+        for ( let x in obj ) {
+            str += `${x}=${obj[x]}&`;
+        }
+        return str.substr( 0, str.length-1 );
+    }
+};
+export default commonMethods;

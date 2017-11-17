@@ -22,7 +22,7 @@ export default {
 
 <style scoped>
 .loading-box {
+    padding-top: 1rem;
     text-align: center;
 }
-
 </style>

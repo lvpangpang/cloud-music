@@ -22,6 +22,12 @@ export default new Router({
             path: '/songList',
             name: 'songList',
             component: resolve => require(['../pages/songList.vue'], resolve)
+        },
+
+        {
+            path: '/songListDetails',
+            name: 'songListDetails',
+            component: resolve => require(['../pages/songListDetails.vue'], resolve)
         }
     ]
 });

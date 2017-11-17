@@ -26,16 +26,16 @@
 
     <div class="recommend-box" v-if="!isLoading">
         <h2 class="h2">
-            <span>推荐歌曲</span>
+            <span>推荐歌单</span>
             <a href="javascript:;" class="more-btn">更多></a>
         </h2>
         <div class="song-list clearfix">
-            <a href="javascript:;" class="song-items" v-for="(item, index) in songList">
+            <router-link :to="'songListDetails?id=' + item.id" class="song-items" v-for="(item, index) in songList" key="{{index}}">
                 <div class="img-box">
                     <img :data-src="item.picUrl" alt="" />
                 </div>
                 <p class="songs-der com-two-overflow">{{item.name}}</p>
-            </a>
+            </router-link>
         </div>
     </div>
 

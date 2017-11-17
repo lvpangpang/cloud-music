@@ -8,7 +8,5 @@ body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,
     -webkit-line-clamp:2;
 }
 .com-body-top {
-    margin-top: 8rem;
-    height: 37.5rem;
-    overflow-y: auto;
+    padding-top: 7.5rem;
 }
