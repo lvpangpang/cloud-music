@@ -1,0 +1,14 @@
+/*公共重置样式*/
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td{font-family:Helvetica,HelveticaNeue,Arial,Verdana,Sans-serif;;margin:0;padding:0}html{font-size:1rem;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal}table{border-collapse:collapse;border-spacing:0}q:before,q:after{content:''}object,embed{vertical-align:top}hr,legend{display:none}img,abbr,acronym,fieldset{border:0}ul li{list-style-type:none}a,label{cursor:pointer}img{vertical-align:bottom;margin:0;padding:0}a{text-decoration:none;outline:0}h1,h2,h3,h4,h5,h6{font-weight: 400}.clearfix:after{content:".";visibility:hidden;display:block;height:.1px;font-size:.1em;line-height:0;clear:both}.clearfix{*zoom:1}input,textarea,select{outline:0;border:1px solid #ccc;border-radius: 0;}input:-ms-input-placeholder,textarea:-ms-input-placeholder{color:#ccc}input::-webkit-input-placeholder,textarea::-webkit-input-placeholder{color:#ccc}*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}button{cursor:pointer;color:#666}textarea{resize:none;outline:0;overflow:hidden;padding:5px}select{outline:0}img{max-width: 100%}*{-webkit-tap-highlight-color:rgba(255,255,255,0); -webkit-appearance: none;}body{max-width: 640px;margin: 0 auto;background-color: #f8f9fc;}img{outline:none;}
+.com-two-overflow {
+    overflow:hidden;
+    text-overflow:ellipsis;
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2;
+}
+.com-body-top {
+    margin-top: 8rem;
+    height: 37.5rem;
+    overflow-y: auto;
+}
