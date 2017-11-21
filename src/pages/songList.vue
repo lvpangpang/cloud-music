@@ -6,7 +6,7 @@
         <a href="javascript:;" class="more-btn">选择分类</a>
     </h2>
     <div class="song-list clearfix">
-        <router-link  :to="'songListDetails?id=' + item.id" class="song-items" v-for="(item, index) in songList">
+        <router-link  :to="'songListDetails?id=' + item.id" class="song-items" v-for="(item, index) in songList" key={{index}}>
             <div class="img-box">
                 <p class="nums" v-html="item.playCount"></p>
                 <img :src="item.coverImgUrl" alt="" />

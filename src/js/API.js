@@ -1,5 +1,6 @@
-const pxy = 'http://47.94.16.170:3000';
+const pxy = '/api';
 const API = {
+
 // 个性推荐
     // banner信息
     banner : pxy +  '/banner',
@@ -20,6 +21,7 @@ const API = {
     playlistdetail : pxy + '/playlist/detail',
 
 // 搜索
-    search : pxy + '/search'
+    search : pxy + '/search',
+    suggest : pxy + '/search/suggest',
 };
 export default API;
