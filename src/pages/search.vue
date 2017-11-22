@@ -15,13 +15,12 @@
     <div class="hot-box">
         <h2 class="h2">热门搜索</h2>
         <div class="hot-list clearfix">
-            <a href="javascript:;" class="hot-item">青花瓷</a>
-            <a href="javascript:;" class="hot-item">老鼠爱大米</a>
-            <a href="javascript:;" class="hot-item">猪之歌</a>
-            <a href="javascript:;" class="hot-item">有一种爱叫做放手</a>
-            <a href="javascript:;" class="hot-item">吻别</a>
-            <a href="javascript:;" class="hot-item">北京欢迎您</a>
-            <a href="javascript:;" class="hot-item">稻香</a>
+            <router-link to="searchResult?keywords=青花瓷" class="hot-item">青花瓷</router-link>
+            <router-link to="searchResult" class="hot-item">老鼠爱大米</router-link>
+            <router-link to="searchResult" class="hot-item">两只蝴蝶</router-link>
+            <router-link to="searchResult" class="hot-item">本草纲目</router-link>
+            <router-link to="searchResult" class="hot-item">烟花易冷</router-link>
+            <router-link to="searchResult" class="hot-item">七里香</router-link>
         </div>
 
     </div>
@@ -65,7 +64,7 @@ export default {
             this.axios.get(this.API.suggest + '?keywords=' + encodeURI((this.searchKey))).then( (data) => {
                 let data1 = data.data;
                 if ( data1.result ) {
-                    this.suggestList = data1.result.songs.slice(0, 10);
+                    this.suggestList = data1.result.songs;
                 }
             } );
         },

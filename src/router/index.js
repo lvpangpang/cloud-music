@@ -28,6 +28,12 @@ export default new Router({
             path: '/songListDetails',
             name: 'songListDetails',
             component: resolve => require(['../pages/songListDetails.vue'], resolve)
+        },
+
+        {
+            path: '/searchResult',
+            name: 'searchResult',
+            component: resolve => require(['../pages/searchResult.vue'], resolve)
         }
     ]
 });

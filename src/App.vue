@@ -28,7 +28,7 @@ export default {
     name: 'app',
     data() {
         return {
-            activeIndex: 0,
+            activeIndex: 999,
             searching : false,
         }
     },
@@ -40,7 +40,6 @@ export default {
                 document.body.scrollTop = document.documentElement.scrollTop =  0;
             }, 0);
             let urlName = to.name;
-            console.log(urlName);
             switch(urlName) {
                 case 'recommend' :
                     this.activeIndex = 0;
@@ -48,13 +47,18 @@ export default {
                 case 'songList':
                     this.activeIndex = 1;
                     break;
+                case 'searchResult':
+                    this.searching = false;
                 default:
-                    this.activeIndex = 0;
+                    this.activeIndex = 999;
             }
         }
     },
 
     mounted() {
+        if ( this.$route.name === 'recommend' ) {
+            this.activeIndex = 0;
+        }
 
     },
 
