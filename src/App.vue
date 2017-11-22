@@ -84,7 +84,7 @@ export default {
     transform: translateY(600px);
 }
 .fade-enter-active {
-    transition: all 1.2s ease;
+    transition: all .4s ease;
 }
 .fade-enter {
     opacity: 0;
