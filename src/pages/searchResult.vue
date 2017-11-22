@@ -3,13 +3,13 @@
     <navHeader name="搜索结果"></navHeader>
     <loading :isLoading="isLoading"></loading>
     <div class="search-list">
-        <router-link to="" class="search-item" v-for="data in ">
+        <router-link :to="'play?id=' + data.id " class="search-item" v-for="data in searchList">
             <div>
-                <p class="name">和风一样</p>
+                <p class="name" v-html="data.name"></p>
                 <p class="details">
-                    <span>周杰伦</span>
+                    <span v-html="data.artists[0].name"></span>
                     -
-                    <span>和风一样</span>
+                    <span v-html="data.album.name"></span>
                 </p>
             </div>
             <div class="play-mark">
@@ -46,6 +46,8 @@ export default {
         getData() {
             this.axios.get(this.API.search +'?keywords=' + this.$route.query.keywords).then( ( data ) => {
                 this.isLoading = false;
+                this.searchList = data.data.result.songs;
+                console.log(data.data);
             });
         }
 
@@ -77,6 +79,6 @@ export default {
 .play-mark {
     width: 1.5rem;
     height: 1.5rem;
-    background: url(../images/play.png) no-repeat center / 1.5rem 1.5rem;
+    background: url(../images/play1.png) no-repeat center / 1.5rem 1.5rem;
 }
 </style>

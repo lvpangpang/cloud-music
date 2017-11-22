@@ -8,7 +8,7 @@
 
     <!-- 搜索建议 -->
     <div class="suggest-box">
-        <a href="javascript:;" class="suggest-item" v-for="data in suggestList" v-html="data.name"></a>
+        <router-link :to="'searchResult?keywords=' + data.name" class="suggest-item" v-for="data in suggestList" v-html="data.name"></router-link>
     </div>
 
     <!-- 热门搜索 -->
@@ -16,11 +16,11 @@
         <h2 class="h2">热门搜索</h2>
         <div class="hot-list clearfix">
             <router-link to="searchResult?keywords=青花瓷" class="hot-item">青花瓷</router-link>
-            <router-link to="searchResult" class="hot-item">老鼠爱大米</router-link>
-            <router-link to="searchResult" class="hot-item">两只蝴蝶</router-link>
-            <router-link to="searchResult" class="hot-item">本草纲目</router-link>
-            <router-link to="searchResult" class="hot-item">烟花易冷</router-link>
-            <router-link to="searchResult" class="hot-item">七里香</router-link>
+            <router-link to="searchResult?keywords=老鼠爱大米" class="hot-item">老鼠爱大米</router-link>
+            <router-link to="searchResult?keywords=两只蝴蝶" class="hot-item">两只蝴蝶</router-link>
+            <router-link to="searchResult?keywords=本草纲目" class="hot-item">本草纲目</router-link>
+            <router-link to="searchResult?keywords=烟花易冷" class="hot-item">烟花易冷</router-link>
+            <router-link to="searchResult?keywords=七里香" class="hot-item">七里香</router-link>
         </div>
 
     </div>
