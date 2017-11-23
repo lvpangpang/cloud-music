@@ -41,7 +41,7 @@ export default {
             isLoading : true,
             isStop: false,
             duration : '',
-            currentTime : '',
+            currentTime : '00:00',
             playSong : {},
             songDetail : {}
         }
@@ -60,8 +60,7 @@ export default {
 
         setInterval( () => {
             this.currentTime = this.time(audio.currentTime);
-            move.style.left = (audio.currentTime/audio.duration * 200) + 'px';
-            console.log(audio.currentTime/audio.duration * 1000);
+            move.style.left = (audio.currentTime/audio.duration * 250) + 'px';
         }, 1000);
 
     },
@@ -203,7 +202,7 @@ export default {
 }
 .play-line {
     position: relative;
-    width: 70%;
+    width: 18rem;
     height: 2px;
     background: #dedede;
 }

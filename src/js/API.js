@@ -1,5 +1,5 @@
-const pxy = '/api';
-const API = {
+let pxy = '/api';
+let API = {
 
 // 个性推荐
     // banner信息

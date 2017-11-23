@@ -15,7 +15,7 @@
     });
 })();
 
-const commonMethods = {
+let commonMethods = {
     param : function(obj) {
         let str = '';
         for ( let x in obj ) {
