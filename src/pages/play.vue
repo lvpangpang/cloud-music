@@ -6,7 +6,7 @@
     <div class="show-box">
         <div class="pendant"></div>
         <div class="turn-table" @click="setStop">
-            <div class="img-box" v-bind:class="{stop : isStop}" >
+            <div class="img-box" v-bind:class="{stop : !isPlay}" >
                 <img :src="songDetail.al.picUrl"  v-if="songDetail.al" />
             </div>
         </div>
@@ -22,16 +22,17 @@
         <div class="operate-box">
             <a href="javascript:;" class="play-type"></a>
             <a href="javascript:;" class="prev-btn"></a>
-            <a href="javascript:;" class="go-play" v-bind:class="{playying : !isStop}" @click="setStop"></a>
+            <a href="javascript:;" class="go-play" v-bind:class="{playying : isPlay}" @click="setStop"></a>
             <a href="javascript:;" class="next-btn"></a>
             <a href="javascript:;" class="play-list"></a>
         </div>
     </div>
-    <audio :src='playSong.url' controls="controls" preload id="music" autoplay="true" hidden></audio>
+    <audio :src='playSong.url' controls="controls" preload id="music" hidden></audio>
 </div>
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
 import loading from '@/components/loading';
 import navHeader from '@/components/nav';
 export default {
@@ -39,14 +40,18 @@ export default {
     data() {
         return {
             isLoading : true,
-            isStop: false,
             duration : '',
             currentTime : '00:00',
             playSong : {},
             songDetail : {}
         }
     },
-    computed : {},
+
+    computed : {
+        ...mapState([
+            'isPlay'
+        ])
+    },
 
     mounted() {
         this.getData();
@@ -56,12 +61,17 @@ export default {
         setTimeout( () => {
             audio = document.getElementById('music');
             this.duration = this.time(audio.duration);
+            if ( this.isPlay ) {
+                audio.play();
+            }
         }, 1000);
 
         setInterval( () => {
             this.currentTime = this.time(audio.currentTime);
             move.style.left = (audio.currentTime/audio.duration * 250) + 'px';
+
         }, 1000);
+
 
     },
 
@@ -71,14 +81,17 @@ export default {
     },
 
     methods : {
+        ...mapActions([
+            'setIsPlay1',
+        ]),
 
         setStop() {
             let audio = document.getElementById('music');
-            this.isStop = !this.isStop;
-            if ( this.isStop ) {
-                audio.pause();
-            } else {
+            this.setIsPlay1(!this.isPlay);
+            if ( this.isPlay ) {
                 audio.play();
+            } else {
+                audio.pause();
             }
         },
 

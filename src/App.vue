@@ -11,7 +11,7 @@
             <router-link to="/" class="nav-item" :class="{active : activeIndex===3}">排行榜</router-link>
         </nav>
         <transition name="fade">
-            <keep-alive include="recommend, songList">
+            <keep-alive include="recommend, songList, play">
                 <router-view></router-view>
             </keep-alive>
         </transition>
