@@ -56,7 +56,7 @@ export default {
         setTimeout( () => {
             audio = document.getElementById('music');
             this.duration = this.time(audio.duration);
-        }, 300);
+        }, 1000);
 
         setInterval( () => {
             this.currentTime = this.time(audio.currentTime);
@@ -130,7 +130,7 @@ export default {
     position: absolute;
     z-index: 2;
     left: 12rem;
-    top: 0;
+    top: -0.3rem;
     width: 6rem;
     height: 10rem;
     background: url(../images/stick-bg.png) no-repeat center / 6rem 10rem;
