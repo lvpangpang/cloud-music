@@ -1,6 +1,6 @@
 <template>
 <div class="com-body-top">
-    <Loading :isLoading="isLoading"></Loading>
+    <loading :isLoading="isLoading"></loading>
     <h2 class="h2" v-cloak v-if="!isLoading">
         <span>全部歌单</span>
         <a href="javascript:;" class="more-btn">选择分类</a>
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import Loading from '@/components/Loading';
+import loading from '@/components/loading';
 export default {
     name: 'songList',
     data() {
@@ -34,7 +34,7 @@ export default {
     },
 
     components: {
-        Loading
+        loading
     },
 
     methods : {

@@ -3,7 +3,7 @@
     <navHeader name="搜索结果"></navHeader>
     <loading :isLoading="isLoading"></loading>
     <div class="search-list">
-        <router-link :to="'play?id=' + data.id " class="search-item" v-for="data in searchList">
+        <router-link :to="'play?id=' + data.id " class="search-item" v-for="data in searchList" key={{index}}>
             <div>
                 <p class="name" v-html="data.name"></p>
                 <p class="details">
@@ -71,6 +71,9 @@ export default {
 }
 .name {
     font-size: 1.2rem;
+    width: 10rem;
+    height: 1.8rem;
+    overflow:hidden;
 }
 .details {
     font-size: .8rem;

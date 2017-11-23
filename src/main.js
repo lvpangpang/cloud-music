@@ -5,6 +5,7 @@ import axios from 'axios';
 import '@/css/common.css';
 import commonMethods from '@/js/common.js';
 import API from '@/js/API';
+
 Vue.config.productionTip = false;
 Vue.prototype.axios = axios;
 Vue.prototype.API = API;

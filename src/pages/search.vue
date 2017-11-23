@@ -8,7 +8,7 @@
 
     <!-- 搜索建议 -->
     <div class="suggest-box">
-        <router-link :to="'searchResult?keywords=' + data.name" class="suggest-item" v-for="data in suggestList" v-html="data.name"></router-link>
+        <router-link :to="'searchResult?keywords=' + data.name" class="suggest-item" v-for="data in suggestList" v-html="data.name" key={{index}}></router-link>
     </div>
 
     <!-- 热门搜索 -->

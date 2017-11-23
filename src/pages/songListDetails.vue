@@ -5,7 +5,7 @@
         <h1 class="h1">歌单</h1>
         <span class="run"></span>
     </header>
-    <Loading :isLoading="isLoading" class="loading"></Loading>
+    <loading :isLoading="isLoading" class="loading"></loading>
     <div class="song-details-box">
         <div class="details-box">
             <div>
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import Loading from '@/components/Loading';
+import loading from '@/components/loading';
 export default {
     name: 'songList',
     data() {
@@ -40,7 +40,7 @@ export default {
     },
 
     components: {
-        Loading
+        loading
     },
 
     methods : {

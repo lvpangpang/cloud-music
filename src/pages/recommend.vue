@@ -1,6 +1,6 @@
 <template>
 <div class="com-body-top">
-    <Loading :isLoading="isLoading"></Loading>
+    <loading :isLoading="isLoading"></loading>
     <mt-swipe :auto="40000">
         <mt-swipe-item v-for="(item, index) in bannerList" key={{index}}>
             <a :href="item.url" class="swipe-item">
@@ -60,7 +60,7 @@
 <script>
 import Vue from 'vue';
 import { Swipe, SwipeItem } from 'mint-ui';
-import Loading from '@/components/Loading';
+import loading from '@/components/loading';
 import '@/js/img-lazy';
 Vue.component(Swipe.name, Swipe);
 Vue.component(SwipeItem.name, SwipeItem);
@@ -123,8 +123,7 @@ export default {
     },
 
     components : {
-        Loading
-
+        loading
     }
 }
 </script>
