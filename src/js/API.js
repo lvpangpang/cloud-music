@@ -23,5 +23,9 @@ const API = {
 // 搜索
     search : pxy + '/search',
     suggest : pxy + '/search/suggest',
+
+// 播放
+    play : pxy + '/music/url',
+    songDetail : pxy + '/song/detail',
 };
 export default API;

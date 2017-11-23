@@ -33,6 +33,12 @@ export default new Router({
             path: '/searchResult',
             name: 'searchResult',
             component: resolve => require(['../pages/searchResult.vue'], resolve)
+        },
+
+        {
+            path: '/play',
+            name: 'play',
+            component: resolve => require(['../pages/play.vue'], resolve)
         }
     ]
 });
