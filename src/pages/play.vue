@@ -13,21 +13,21 @@
     </div>
     <div class="control-box">
         <div class="time-box">
-            <span>01:45</span>
+            <span v-html="currentTime"></span>
             <div class="play-line">
-                <span class="move"></span>
+                <span class="move" id="move"></span>
             </div>
-            <span>03:50</span>
+            <span v-html="duration"></span>
         </div>
         <div class="operate-box">
             <a href="javascript:;" class="play-type"></a>
             <a href="javascript:;" class="prev-btn"></a>
-            <a href="javascript:;" class="go-play" v-bind:class="{playying : !isStop}"></a>
+            <a href="javascript:;" class="go-play" v-bind:class="{playying : !isStop}" @click="setStop"></a>
             <a href="javascript:;" class="next-btn"></a>
             <a href="javascript:;" class="play-list"></a>
         </div>
     </div>
-    <audio :src='playSong.url' ></audio>
+    <audio :src='playSong.url' controls="controls" preload id="music" autoplay="true" hidden></audio>
 </div>
 </template>
 
@@ -40,6 +40,8 @@ export default {
         return {
             isLoading : true,
             isStop: false,
+            duration : '',
+            currentTime : '',
             playSong : {},
             songDetail : {}
         }
@@ -49,6 +51,18 @@ export default {
     mounted() {
         this.getData();
         this.getSongDetails();
+        let audio = null,
+            move = document.getElementById('move');
+        setTimeout( () => {
+            audio = document.getElementById('music');
+            this.duration = this.time(audio.duration);
+        }, 300);
+
+        setInterval( () => {
+            this.currentTime = this.time(audio.currentTime);
+            move.style.left = (audio.currentTime/audio.duration * 200) + 'px';
+            console.log(audio.currentTime/audio.duration * 1000);
+        }, 1000);
 
     },
 
@@ -60,7 +74,13 @@ export default {
     methods : {
 
         setStop() {
+            let audio = document.getElementById('music');
             this.isStop = !this.isStop;
+            if ( this.isStop ) {
+                audio.pause();
+            } else {
+                audio.play();
+            }
         },
 
         getData() {
@@ -76,6 +96,14 @@ export default {
                 console.log(data.data.songs[0]);
                 this.songDetail = data.data.songs[0];
             });
+        },
+
+        time(secs) {
+            let se = parseInt(secs),
+                mins = parseInt(se/60),
+                sec = parseInt(se%60);
+            return (mins < 10 ? ('0' + mins) : mins)   + ':' + (sec < 10 ? ('0' + sec) : sec);
+
         }
 
     }
