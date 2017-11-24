@@ -108,6 +108,7 @@ export default {
                 this.axios.get(this.API.personalized).then( ( data ) => {
                     resolve();
                     this.songList = data.data.result;
+                    console.log(this.songList);
                 });
             });
         },

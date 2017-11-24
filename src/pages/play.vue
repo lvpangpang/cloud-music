@@ -183,7 +183,6 @@ export default {
             }, 1000);
 
             setInterval( () => {
-                // audio.currentTime = 100;
                 this.currentTime = this.time(audio.currentTime);
                 move.style.left = (audio.currentTime/audio.duration * 250) + 'px';
                 if ( audio.currentTime >= audio.duration ) {

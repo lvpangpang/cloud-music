@@ -1,14 +1,18 @@
 <template>
 <div>
-    <header class="nav-header">
+   <!--  <header class="nav-header">
         <a href="javascript:history.back()" class="back-btn"></a>
         <h1 class="h1">歌单</h1>
         <span class="run"></span>
-    </header>
+    </header> -->
     <loading :isLoading="isLoading" class="loading"></loading>
     <div class="song-details-box">
         <div class="details-box">
-            <div>
+            <div class="text-box">
+                <img :src="songDetails.coverImgUrl" class="img-box" />
+                <div class="author-box">
+                    <p v-html="songDetails.name"></p>
+                </div>
 
             </div>
             <div>
@@ -18,6 +22,19 @@
         <div>
 
         </div>
+        <div class="search-list">
+            <router-link :to="'play?id=' + data.id " class="search-item" v-for="data in songList" key={{index}}>
+                <div>
+                    <p class="name" v-html="data.name"></p>
+                    <p class="details">
+                        <span v-html="data.ar[0].name"></span>
+                        -
+                        <span v-html="data.al.name"></span>
+                    </p>
+                </div>
+                <div class="play-mark"></div>
+            </router-link>
+        </div>
     </div>
 
 </div>
@@ -26,10 +43,11 @@
 <script>
 import loading from '@/components/loading';
 export default {
-    name: 'songList',
+    name: 'songListDetails',
     data() {
         return {
             isLoading : true,
+            songDetails : {},
             songList : []
         }
     },
@@ -45,9 +63,10 @@ export default {
 
     methods : {
         getSongList() {
-            console.log( this.$route );
-            this.axios.get( this.API.playlistdetail + '?id=' +this.$route.query.id ).then( ( data ) => {
-                console.log(data.data);
+            this.axios.get( this.API.playlistdetail + '?id=' + this.$route.query.id ).then( ( data ) => {
+                console.log(data.data.playlist);
+                this.songList = data.data.playlist.tracks;
+                this.songDetails = data.data.playlist;
                 this.isLoading = false;
             });
         }
@@ -59,43 +78,35 @@ export default {
 .loading {
     margin-top: 4rem;
 }
-.nav-header {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 3rem;
+.text-box {
+    height: 10rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 .5rem;
+    padding: 0 1rem;
+}
+.img-box {
+    width: 6rem;
+}
+.search-item {
+    display: block;
+    height: 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
     color: #333;
-    background: #fff;
+    border-bottom: 1px solid #efefef;
 }
-.nav-header .h1 {
-    font-weight: 400;
+.name {
     font-size: 1.2rem;
+    width: 10rem;
+    height: 1.8rem;
+    overflow:hidden;
 }
-.nav-header .back-btn {
-    width: 2rem;
-    height: 2rem;
-    background: url(../images/back.png) no-repeat center / 2rem 2rem;
-}
-.nav-header .run {
-    width: 2rem;
-    height: 2rem;
-    background: url(../images/hot.gif) no-repeat center / 2rem 2rem;
-}
-
-.song-details-box {
-    height: 8rem;
-}
-.details-box {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 2rem;
-    height: 6rem;
+.details {
+    font-size: .8rem;
+    color: #808080;
 }
 
 </style>

@@ -80,12 +80,12 @@ export default {
     margin: .5rem 1%;
     color: #333;
 }
-.img-box {
+.song-items .img-box {
     position: relative;
     height: 10rem;
     overflow: hidden;
 }
-.nums {
+.song-items .nums {
     position: absolute;
     left: 0;
     top: 0;
@@ -97,7 +97,7 @@ export default {
     padding: .2rem .3rem 0 0;
     font-size: .9rem;
 }
-.songs-der {
+.song-items .songs-der {
     margin-top: .2rem;
 }
 </style>
