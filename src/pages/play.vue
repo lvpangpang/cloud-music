@@ -27,7 +27,15 @@
             <a href="javascript:;" class="play-list"></a>
         </div>
     </div>
+
+    <div class="history-box">
+        <h3 class="h3">播放列表</h3>
+        <div>
+            <a href="javascript:;">贝多芬的悲伤</a>
+        </div>
+    </div>
     <audio :src='playSong.url' controls="controls" preload id="music" hidden></audio>
+
 </div>
 </template>
 
@@ -69,9 +77,7 @@ export default {
         setInterval( () => {
             this.currentTime = this.time(audio.currentTime);
             move.style.left = (audio.currentTime/audio.duration * 250) + 'px';
-
         }, 1000);
-
 
     },
 
@@ -83,6 +89,7 @@ export default {
     methods : {
         ...mapActions([
             'setIsPlay1',
+            'addHistoryList'
         ]),
 
         setStop() {
@@ -99,14 +106,17 @@ export default {
             this.axios.get(this.API.play +'?id=' + this.$route.query.id).then( ( data ) => {
                 this.isLoading = false;
                 this.playSong = data.data.data[0];
-                console.log(data.data);
             });
         },
 
         getSongDetails() {
             this.axios.get(this.API.songDetail +'?ids=' + this.$route.query.id).then( ( data ) => {
-                console.log(data.data.songs[0]);
                 this.songDetail = data.data.songs[0];
+                console.log(this.songDetail);
+                this.addHistoryList({
+                    id : this.$route.query.id,
+                    songName : this.songDetail.name
+                });
             });
         },
 
@@ -272,5 +282,22 @@ export default {
 .play-list {
     background: url(../images/list.png) no-repeat center / 4rem 4rem;
 }
+
+.history-box {
+    position: fixed;
+    z-index:3;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 25rem;
+    background: #fff;
+}
+.history-box .h3 {
+    line-height: 3rem;
+    text-align: center;
+    font-size: 1.2rem;
+    border-bottom: 1px solid #dedede;
+}
+
 
 </style>
