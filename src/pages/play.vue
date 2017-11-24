@@ -24,16 +24,21 @@
             <a href="javascript:;" class="prev-btn"></a>
             <a href="javascript:;" class="go-play" v-bind:class="{playying : isPlay}" @click="setStop"></a>
             <a href="javascript:;" class="next-btn"></a>
-            <a href="javascript:;" class="play-list"></a>
+            <a href="javascript:;" class="play-list" @click="showHistory"></a>
         </div>
     </div>
 
-    <div class="history-box">
-        <h3 class="h3">播放列表</h3>
-        <div>
-            <a href="javascript:;">贝多芬的悲伤</a>
+    <transition name="top">
+        <div class="history-box" v-if="showHistoryFlag">
+            <div class="history-bg"></div>
+            <div class="history-main">
+                <h3 class="h3">播放列表</h3>
+                <div class="list-box">
+                    <a href="javascript:;" class="history-item" v-for="(data , index) in historyList" key={{index}} v-html="data.songName" :data-id="data.id"></a>
+                </div>
+            </div>
         </div>
-    </div>
+    </transition>
     <audio :src='playSong.url' controls="controls" preload id="music" hidden></audio>
 
 </div>
@@ -51,13 +56,15 @@ export default {
             duration : '',
             currentTime : '00:00',
             playSong : {},
+            showHistoryFlag : false,
             songDetail : {}
         }
     },
 
     computed : {
         ...mapState([
-            'isPlay'
+            'isPlay',
+            'historyList'
         ])
     },
 
@@ -125,7 +132,10 @@ export default {
                 mins = parseInt(se/60),
                 sec = parseInt(se%60);
             return (mins < 10 ? ('0' + mins) : mins)   + ':' + (sec < 10 ? ('0' + sec) : sec);
+        },
 
+        showHistory() {
+            this.showHistoryFlag  = true;
         }
 
     }
@@ -284,6 +294,39 @@ export default {
 }
 
 .history-box {
+
+}
+.history-box .h3 {
+    line-height: 3rem;
+    text-align: center;
+    font-size: 1.2rem;
+    border-bottom: 1px solid #dedede;
+}
+.history-box .list-box {
+    height: 22rem;
+    overflow-y: auto;
+}
+.history-box .history-item {
+    display: block;
+    line-height: 2.5rem;
+    margin-left: 1rem;
+    border-bottom: 1px solid #dedede;
+    color: #333;
+}
+.history-box .active {
+    color: #d43c33;
+}
+.history-box .history-bg {
+    content:'';
+    position: fixed;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(233, 245, 255, .4);
+}
+.history-box .history-main {
     position: fixed;
     z-index:3;
     left: 0;
@@ -292,12 +335,4 @@ export default {
     height: 25rem;
     background: #fff;
 }
-.history-box .h3 {
-    line-height: 3rem;
-    text-align: center;
-    font-size: 1.2rem;
-    border-bottom: 1px solid #dedede;
-}
-
-
 </style>

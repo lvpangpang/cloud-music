@@ -12,6 +12,16 @@ const store = new Vuex.Store( {
             state.isPlay = flag;
         },
         addHistoryList( state, song ) {
+            // 判断是非同一首
+            let songIndex = null;
+            state.historyList.forEach(( item, index, arr) => {
+                if ( item.id === song.id ) {
+                    songIndex = index;
+                }
+            });
+            if ( songIndex!==null ) {
+                state.historyList.splice(songIndex, 1);
+            }
             state.historyList.unshift(song);
         },
 
