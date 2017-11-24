@@ -128,7 +128,7 @@ export default {
         },
 
         showHistory() {
-            this.showHistoryFlag  = !this.showHistoryFlag;
+            this.showHistoryFlag = !this.showHistoryFlag;
         },
 
         goPlay(songId) {
@@ -137,8 +137,43 @@ export default {
         },
 
         fn() {
-            let audio = null,
-                move = document.getElementById('move');
+            let move = document.getElementById('move'),
+                audio = document.getElementById('audio'),
+                startLeft = 0,
+                startX = 0,
+                startY = 0,
+                moveX = 0,
+                moveY = 0,
+                swipeX = true,
+                swipeY = false,
+                x = 0,
+                oThis = this;
+
+            move.addEventListener('touchstart', function(event) {
+                startX = event.targetTouches[0].pageX;
+                startY = event.targetTouches[0].pageY;
+            }, false);
+
+            move.addEventListener('touchmove', function(event) {
+                moveX = event.targetTouches[0].pageX;
+                moveY = event.targetTouches[0].pageY;
+                if ( swipeX  && Math.abs(moveX - startX) >= Math.abs(moveY - startY) ) {
+                    event.preventDefault();
+                    swipeY = false;
+                    x = parseFloat(move.style.left) + event.targetTouches[0].pageX - startX;
+                    startX = event.targetTouches[0].pageX;
+                    x = Math.min(Math.max(0 , x), 250);
+                    move.style.left =  x + 'px';
+                } else if ( swipeY && Math.abs(moveX - startX) < Math.abs(moveY - startY) ) {
+                    swipeX = false;
+                }
+            }, false);
+
+            move.addEventListener('touchend', function(event) {
+                move.style.left =  x + 'px';
+                audio.currentTime = x/250 * audio.duration;
+            }, false);
+
             setTimeout( () => {
                 audio = document.getElementById('music');
                 this.duration = this.time(audio.duration);
@@ -148,6 +183,7 @@ export default {
             }, 1000);
 
             setInterval( () => {
+                // audio.currentTime = 100;
                 this.currentTime = this.time(audio.currentTime);
                 move.style.left = (audio.currentTime/audio.duration * 250) + 'px';
                 if ( audio.currentTime >= audio.duration ) {
@@ -246,7 +282,7 @@ export default {
     animation: circling 20s infinite linear;
 }
 .stop {
-        animation-play-state:paused;
+    animation-play-state:paused;
 }
 .img-box img {
     width: 100%;
@@ -271,7 +307,7 @@ export default {
 }
 .play-line {
     position: relative;
-    width: 18rem;
+    width: 250px;
     height: 2px;
     background: #dedede;
 }
