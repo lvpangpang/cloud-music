@@ -79,9 +79,4 @@ export default {
     font-size: .8rem;
     color: #808080;
 }
-.play-mark {
-    width: 1.5rem;
-    height: 1.5rem;
-    background: url(../images/play1.png) no-repeat center / 1.5rem 1.5rem;
-}
 </style>

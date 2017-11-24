@@ -30,11 +30,14 @@
 
     <transition name="top">
         <div class="history-box" v-if="showHistoryFlag">
-            <div class="history-bg"></div>
+            <div class="history-bg" @click="showHistory"></div>
             <div class="history-main">
                 <h3 class="h3">播放列表</h3>
                 <div class="list-box">
-                    <a href="javascript:;" class="history-item" v-for="(data , index) in historyList" key={{index}} v-html="data.songName" :data-id="data.id"></a>
+                    <a href="javascript:;" class="history-item" v-for="(data , index) in historyList" key={{index}} :data-id="data.id" @click="goPlay(data.id)">
+                        <span v-html="data.songName"></span>
+                        <span class="play-mark"></span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -69,22 +72,8 @@ export default {
     },
 
     mounted() {
-        this.getData();
-        this.getSongDetails();
-        let audio = null,
-            move = document.getElementById('move');
-        setTimeout( () => {
-            audio = document.getElementById('music');
-            this.duration = this.time(audio.duration);
-            if ( this.isPlay ) {
-                audio.play();
-            }
-        }, 1000);
-
-        setInterval( () => {
-            this.currentTime = this.time(audio.currentTime);
-            move.style.left = (audio.currentTime/audio.duration * 250) + 'px';
-        }, 1000);
+        this.getData(this.$route.query.id);
+        this.getSongDetails(this.$route.query.id);
 
     },
 
@@ -109,17 +98,17 @@ export default {
             }
         },
 
-        getData() {
-            this.axios.get(this.API.play +'?id=' + this.$route.query.id).then( ( data ) => {
+        getData(songId) {
+            this.axios.get(this.API.play +'?id=' + songId).then( ( data ) => {
                 this.isLoading = false;
                 this.playSong = data.data.data[0];
             });
         },
 
-        getSongDetails() {
-            this.axios.get(this.API.songDetail +'?ids=' + this.$route.query.id).then( ( data ) => {
+        getSongDetails(songId) {
+            this.axios.get(this.API.songDetail +'?ids=' + songId).then( ( data ) => {
                 this.songDetail = data.data.songs[0];
-                console.log(this.songDetail);
+                this.fn();
                 this.addHistoryList({
                     id : this.$route.query.id,
                     songName : this.songDetail.name
@@ -135,7 +124,29 @@ export default {
         },
 
         showHistory() {
-            this.showHistoryFlag  = true;
+            this.showHistoryFlag  = !this.showHistoryFlag;
+        },
+
+        goPlay(songId) {
+            this.getData(songId);
+            this.getSongDetails(songId);
+        },
+
+        fn() {
+            let audio = null,
+                move = document.getElementById('move');
+            setTimeout( () => {
+                audio = document.getElementById('music');
+                this.duration = this.time(audio.duration);
+                if ( this.isPlay ) {
+                    audio.play();
+                }
+            }, 1000);
+
+            setInterval( () => {
+                this.currentTime = this.time(audio.currentTime);
+                move.style.left = (audio.currentTime/audio.duration * 250) + 'px';
+            }, 1000);
         }
 
     }
@@ -310,8 +321,12 @@ export default {
     display: block;
     line-height: 2.5rem;
     margin-left: 1rem;
+    padding-right: 1rem;
     border-bottom: 1px solid #dedede;
     color: #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 .history-box .active {
     color: #d43c33;

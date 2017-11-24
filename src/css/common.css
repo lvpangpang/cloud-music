@@ -10,3 +10,8 @@ body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,
 .com-body-top {
     padding-top: 7.5rem;
 }
+.play-mark {
+    width: 1.5rem;
+    height: 1.5rem;
+    background: url(../images/play1.png) no-repeat center / 1.5rem 1.5rem;
+}
