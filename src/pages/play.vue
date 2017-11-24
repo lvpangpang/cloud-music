@@ -21,9 +21,9 @@
         </div>
         <div class="operate-box">
             <a href="javascript:;" class="play-type"></a>
-            <a href="javascript:;" class="prev-btn"></a>
+            <a href="javascript:;" class="prev-btn" @click="perv"></a>
             <a href="javascript:;" class="go-play" v-bind:class="{playying : isPlay}" @click="setStop"></a>
-            <a href="javascript:;" class="next-btn"></a>
+            <a href="javascript:;" class="next-btn" @click="next"></a>
             <a href="javascript:;" class="play-list" @click="showHistory"></a>
         </div>
     </div>
@@ -34,7 +34,7 @@
             <div class="history-main">
                 <h3 class="h3">播放列表</h3>
                 <div class="list-box">
-                    <a href="javascript:;" class="history-item" v-for="(data , index) in historyList" key={{index}} :data-id="data.id" @click="goPlay(data.id)">
+                    <a href="javascript:;" class="history-item" v-for="(data , index) in historyList" key={{index}} :data-id="data.id" @click="goPlay(data.id)" :class="{active : playSongId == data.id}">
                         <span v-html="data.songName"></span>
                         <span class="play-mark"></span>
                     </a>
@@ -67,14 +67,15 @@ export default {
     computed : {
         ...mapState([
             'isPlay',
-            'historyList'
+            'historyList',
+            'playSongId',
+            'playSongIndex'
         ])
     },
 
     mounted() {
         this.getData(this.$route.query.id);
         this.getSongDetails(this.$route.query.id);
-
     },
 
     components: {
@@ -85,7 +86,9 @@ export default {
     methods : {
         ...mapActions([
             'setIsPlay1',
-            'addHistoryList'
+            'addHistoryList1',
+            'setPlaySongId1',
+            'setPlaySongIndex1'
         ]),
 
         setStop() {
@@ -108,11 +111,12 @@ export default {
         getSongDetails(songId) {
             this.axios.get(this.API.songDetail +'?ids=' + songId).then( ( data ) => {
                 this.songDetail = data.data.songs[0];
-                this.fn();
-                this.addHistoryList({
-                    id : this.$route.query.id,
+                this.setPlaySongId1(this.songDetail.id);
+                this.addHistoryList1({
+                    id : songId,
                     songName : this.songDetail.name
                 });
+                this.fn();
             });
         },
 
@@ -146,7 +150,28 @@ export default {
             setInterval( () => {
                 this.currentTime = this.time(audio.currentTime);
                 move.style.left = (audio.currentTime/audio.duration * 250) + 'px';
+                if ( audio.currentTime >= audio.duration ) {
+                    this.next();
+                }
             }, 1000);
+        },
+
+        perv() {
+            if ( this.playSongIndex===0 ) {
+                this.setPlaySongIndex1(this.historyList.length-1);
+            } else {
+                this.setPlaySongIndex1(this.playSongIndex-1);
+            }
+            this.goPlay(this.historyList[this.playSongIndex].id);
+        },
+
+        next() {
+            if ( this.playSongIndex===this.historyList.length-1 ) {
+                this.setPlaySongIndex1(0);
+            } else {
+                this.setPlaySongIndex1(this.playSongIndex+1);
+            }
+            this.goPlay(this.historyList[this.playSongIndex].id);
         }
 
     }
