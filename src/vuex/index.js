@@ -31,7 +31,7 @@ const store = new Vuex.Store( {
 
             state.historyList.forEach(( item, index, arr) => {
                 if ( item.id == state.playSongId ) {
-                    state.playSongIndex = index
+                    state.playSongIndex = index;
                 }
             });
         },
