@@ -1,10 +1,6 @@
 <template>
-<div>
-   <!--  <header class="nav-header">
-        <a href="javascript:history.back()" class="back-btn"></a>
-        <h1 class="h1">歌单</h1>
-        <span class="run"></span>
-    </header> -->
+<div class="com-nav-top">
+    <navHeader name="歌单详情"></navHeader>
     <loading :isLoading="isLoading" class="loading"></loading>
     <div class="song-details-box">
         <div class="details-box">
@@ -42,6 +38,8 @@
 
 <script>
 import loading from '@/components/loading';
+import navHeader from '@/components/nav';
+
 export default {
     name: 'songListDetails',
     data() {
@@ -58,7 +56,8 @@ export default {
     },
 
     components: {
-        loading
+        loading,
+        navHeader
     },
 
     methods : {
@@ -75,9 +74,6 @@ export default {
 </script>
 
 <style scoped>
-.loading {
-    margin-top: 4rem;
-}
 .text-box {
     height: 10rem;
     display: flex;
@@ -88,25 +84,7 @@ export default {
 .img-box {
     width: 6rem;
 }
-.search-item {
-    display: block;
-    height: 4rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 1rem;
-    color: #333;
-    border-bottom: 1px solid #efefef;
+.author-box {
+    width: 15rem;
 }
-.name {
-    font-size: 1.2rem;
-    width: 10rem;
-    height: 1.8rem;
-    overflow:hidden;
-}
-.details {
-    font-size: .8rem;
-    color: #808080;
-}
-
 </style>

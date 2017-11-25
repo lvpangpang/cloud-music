@@ -1,5 +1,5 @@
 <template>
-<div class="search-result-box">
+<div class="com-nav-top">
     <navHeader name="搜索结果"></navHeader>
     <loading :isLoading="isLoading"></loading>
     <div class="search-list">
@@ -54,29 +54,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-.search-result-box {
-    padding-top: 3rem;
-}
-.search-item {
-    display: block;
-    height: 4rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 1rem;
-    color: #333;
-    border-bottom: 1px solid #efefef;
-}
-.name {
-    font-size: 1.2rem;
-    width: 10rem;
-    height: 1.8rem;
-    overflow:hidden;
-}
-.details {
-    font-size: .8rem;
-    color: #808080;
-}
-</style>

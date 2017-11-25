@@ -1,5 +1,5 @@
 <template>
-<div class="play-box">
+<div class="com-nav-top">
     <img :src="songDetail.al.picUrl" class="bg" v-if="songDetail.al" />
     <navHeader :name="songDetail.name"></navHeader>
     <loading :isLoading="isLoading"></loading>
@@ -214,10 +214,6 @@ export default {
 </script>
 
 <style scoped>
-.play-box {
-    height: 45.5rem;
-    padding-top: 3rem;
-}
 .bg {
     position: absolute;
     left: 0;
