@@ -42,7 +42,7 @@
             </div>
         </div>
     </transition>
-    <audio :src='playSong.url' controls="controls" preload id="music" hidden></audio>
+    <!-- <audio :src='playSong.url' controls="controls" preload id="music" hidden></audio> -->
 
 </div>
 </template>
@@ -88,7 +88,8 @@ export default {
             'setIsPlay1',
             'addHistoryList1',
             'setPlaySongId1',
-            'setPlaySongIndex1'
+            'setPlaySongIndex1',
+            'setPlaySong1'
         ]),
 
         setStop() {
@@ -104,7 +105,7 @@ export default {
         getData(songId) {
             this.axios.get(this.API.play +'?id=' + songId).then( ( data ) => {
                 this.isLoading = false;
-                this.playSong = data.data.data[0];
+                this.setPlaySong1(data.data.data[0]);
             });
         },
 

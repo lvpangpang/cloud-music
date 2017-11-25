@@ -5,13 +5,13 @@
             <a href="javascript:;" class="search-btn" @click="setSearch"></a>
         </header>
         <nav class="nav-box" v-if="activeIndex<=4">
-            <router-link to="/" class="nav-item" :class="{active : activeIndex===0}">个性推荐</router-link>
+            <router-link to="/recommend" class="nav-item" :class="{active : activeIndex===0}">个性推荐</router-link>
             <router-link to="/songList" class="nav-item" :class="{active : activeIndex===1}">歌单</router-link>
             <router-link to="/" class="nav-item" :class="{active : activeIndex===2}">主播电台</router-link>
             <router-link to="/" class="nav-item" :class="{active : activeIndex===3}">排行榜</router-link>
         </nav>
         <transition name="fade">
-            <keep-alive include="recommend, songList, play">
+            <keep-alive :include="['/', 'recommend', 'songList']">
                 <router-view></router-view>
             </keep-alive>
         </transition>
@@ -19,10 +19,14 @@
         <transition name="show-search">
             <search v-show="searching" v-on:setSearch="setSearch"></search>
         </transition>
+
+        <audio :src='playSong.url' controls="controls" preload id="music" hidden></audio>
+
     </div>
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
 import search from '@/pages/search';
 export default {
     name: 'app',
@@ -32,7 +36,15 @@ export default {
             searching : false,
         }
     },
-    computed : {},
+    computed : {
+        ...mapState([
+            'isPlay',
+            'historyList',
+            'playSongId',
+            'playSongIndex',
+            'playSong'
+        ])
+    },
 
     watch: {
         '$route' (to, from) {

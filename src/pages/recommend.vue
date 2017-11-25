@@ -18,9 +18,9 @@
             <div class="nav-top nav-text">16</div>
             <p>每日歌曲推荐</p>
         </router-link>
-        <router-link :to="'/hot?theme'" class="nav-item">
+        <router-link :to="'/play?id='+ playSongId" class="nav-item">
             <img src="../images/hot.gif" class="nav-top" />
-            <p>云音乐热歌榜</p>
+            <p>正在播放</p>
         </router-link>
     </nav>
 
@@ -59,6 +59,7 @@
 
 <script>
 import Vue from 'vue';
+import { mapState, mapActions } from 'vuex';
 import { Swipe, SwipeItem } from 'mint-ui';
 import loading from '@/components/loading';
 import '@/js/img-lazy';
@@ -74,6 +75,15 @@ export default {
             songList : [],
             mvList : []
         }
+    },
+
+    computed : {
+        ...mapState([
+            'isPlay',
+            'historyList',
+            'playSongId',
+            'playSongIndex'
+        ])
     },
 
     mounted() {

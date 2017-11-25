@@ -5,8 +5,9 @@ Vue.use(Vuex);
 const store = new Vuex.Store( {
     state : {
         isPlay : true,
-        playSongId : null,
+        playSongId : 185811,
         playSongIndex : 0,
+        playSong : {},
         historyList : []
     },
     mutations : {
@@ -40,6 +41,10 @@ const store = new Vuex.Store( {
             state.playSongId = playSongId;
         },
 
+        setPlaySong( state, song ) {
+            state.playSong = song;
+        },
+
         setPlaySongIndex( state, playSongIndex )   {
             state.playSongIndex = playSongIndex;
         }
@@ -57,6 +62,9 @@ const store = new Vuex.Store( {
         },
         setPlaySongIndex1( context, playSongIndex  ) {
             context.commit('setPlaySongIndex', playSongIndex );
+        },
+        setPlaySong1( context, song  ) {
+            context.commit('setPlaySong', song );
         }
     }
 });
