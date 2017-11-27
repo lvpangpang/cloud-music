@@ -90,7 +90,7 @@ export default {
 <style scoped>
 .show-search-enter-active,
 .show-search-leave-active {
-    transition: all .2s ease;
+    transition: all .3s ease;
 }
 .show-search-enter {
     transform: translateY(50px);

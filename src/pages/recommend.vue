@@ -221,18 +221,6 @@ export default {
 .recommend-box .img-box img {
     height: 100%;
 }
-.recommend-box .nums {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 1.5rem;
-    background-image: linear-gradient(180deg,rgba(0,0,0,.2),transparent);
-    color: #fff;
-    text-align: right;
-    padding: .2rem .3rem 0 0;
-    font-size: .9rem;
-}
 .recommend-box .songs-der {
     margin-top: .2rem;
     height: 2.5rem;

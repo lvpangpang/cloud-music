@@ -39,3 +39,17 @@ body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,
     font-size: .8rem;
     color: #808080;
 }
+
+.com-nums {
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 1.5rem;
+    background-image: linear-gradient(180deg,rgba(0,0,0,.2),transparent);
+    color: #fff;
+    text-align: right;
+    padding: .2rem .3rem 0 0;
+    font-size: .9rem;
+}

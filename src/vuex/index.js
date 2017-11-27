@@ -2,15 +2,26 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 Vue.use(Vuex);
 
-const store = new Vuex.Store( {
+const store = new Vuex.Store({
     state : {
+        // 是否正在播放
         isPlay : true,
+        // 当前播放歌曲id
         playSongId : 185811,
+        // 当前播放歌曲index
         playSongIndex : 0,
+        // 是否单曲循环
+        isBelong : false,
+        // 播放歌曲对象
         playSong : {},
+        // 历史播放记录
         historyList : []
     },
     mutations : {
+
+        setIsBelong( state, flag ) {
+            state.isBelong = !state.isBelong;
+        },
 
         setIsPlay( state, flag ) {
             state.isPlay = flag;
@@ -51,6 +62,11 @@ const store = new Vuex.Store( {
 
     },
     actions: {
+
+        setIsBelong1( context, flag ) {
+            context.commit('setIsBelong', flag);
+        },
+
         setIsPlay1( context, flag ) {
             context.commit('setIsPlay', flag);
         },

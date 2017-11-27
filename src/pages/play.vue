@@ -20,9 +20,9 @@
             <span v-html="duration"></span>
         </div>
         <div class="operate-box">
-            <a href="javascript:;" class="play-type"></a>
+            <a href="javascript:;" class="play-type" @click="setIsBelong1" :class="{'one-play' : isBelong}"></a>
             <a href="javascript:;" class="prev-btn" @click="perv"></a>
-            <a href="javascript:;" class="go-play" v-bind:class="{playying : isPlay}" @click="setStop"></a>
+            <a href="javascript:;" class="go-play" @click="setStop" :class="{playying : isPlay}"></a>
             <a href="javascript:;" class="next-btn" @click="next"></a>
             <a href="javascript:;" class="play-list" @click="showHistory"></a>
         </div>
@@ -69,7 +69,8 @@ export default {
             'isPlay',
             'historyList',
             'playSongId',
-            'playSongIndex'
+            'playSongIndex',
+            'isBelong'
         ])
     },
 
@@ -89,7 +90,8 @@ export default {
             'addHistoryList1',
             'setPlaySongId1',
             'setPlaySongIndex1',
-            'setPlaySong1'
+            'setPlaySong1',
+            'setIsBelong1'
         ]),
 
         setStop() {
@@ -202,6 +204,11 @@ export default {
         },
 
         next() {
+            // 单曲循环
+            if ( this.isBelong ) {
+                this.goPlay(this.historyList[this.playSongIndex].id);
+                return;
+            }
             if ( this.playSongIndex===this.historyList.length-1 ) {
                 this.setPlaySongIndex1(0);
             } else {
@@ -341,7 +348,7 @@ export default {
     height: 4rem;
 }
 .play-type {
-    background: url(../images/seq.png) no-repeat center / 4rem 4rem;
+    background: url(../images/nobelong.png) no-repeat center / 4rem 4rem;
 }
 .prev-btn,
 .next-btn {
@@ -359,6 +366,9 @@ export default {
 }
 .play-list {
     background: url(../images/list.png) no-repeat center / 4rem 4rem;
+}
+.one-play {
+    background: url(../images/belong.png) no-repeat center / 4rem 4rem;
 }
 
 .history-box {

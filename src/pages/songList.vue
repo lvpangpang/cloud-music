@@ -8,7 +8,7 @@
     <div class="song-list clearfix">
         <router-link  :to="'songListDetails?id=' + item.id" class="song-items" v-for="(item, index) in songList" key={{index}}>
             <div class="img-box">
-                <p class="nums" v-html="item.playCount"></p>
+                <p class="com-nums" v-html="item.playCount"></p>
                 <img :src="item.coverImgUrl" alt="" />
             </div>
             <p class="songs-der com-two-overflow">{{item.name}}</p>
@@ -84,18 +84,6 @@ export default {
     position: relative;
     height: 10rem;
     overflow: hidden;
-}
-.song-items .nums {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 1.5rem;
-    background-image: linear-gradient(180deg,rgba(0,0,0,.2),transparent);
-    color: #fff;
-    text-align: right;
-    padding: .2rem .3rem 0 0;
-    font-size: .9rem;
 }
 .song-items .songs-der {
     margin-top: .2rem;
