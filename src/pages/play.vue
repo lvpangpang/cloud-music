@@ -229,8 +229,7 @@ export default {
                 this.songTimeList.forEach( (item, index, arr) => {
                     if ( this.currentTime>item && item<arr[index+1] && aa[index]!==1 ) {
                         aa[index] = 1;
-                        k += 22;
-                        console.log(document.getElementById('songWords'));
+                        k += 24;
                         if ( document.getElementById('songWords') != null ) {
                             document.getElementById('songWords').scrollTop = k ;
                         }
