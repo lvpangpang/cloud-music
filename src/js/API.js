@@ -27,5 +27,6 @@ let API = {
 // 播放
     play : pxy + '/music/url',
     songDetail : pxy + '/song/detail',
+    lyric : pxy + '/lyric',
 };
 export default API;

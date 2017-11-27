@@ -4,8 +4,11 @@
     <navHeader :name="songDetail.name"></navHeader>
     <loading :isLoading="isLoading"></loading>
     <div class="show-box">
-        <div class="pendant"></div>
-        <div class="turn-table" @click="setStop">
+        <div class="pendant" v-if="!showWords"></div>
+        <div @click="showSongWords"  class="song-words" v-if="songWords.lrc&&showWords">
+            <p v-for="data in songWords.lrc.lyric" key="{{index}}" v-html="data.slice(data.indexOf(']')+1)" :data-time="data.slice(data.indexOf('[')+1, data.indexOf(']'))"></p>
+        </div>
+        <div class="turn-table" @click="showSongWords" v-else>
             <div class="img-box" v-bind:class="{stop : !isPlay}" >
                 <img :src="songDetail.al.picUrl"  v-if="songDetail.al" />
             </div>
@@ -58,9 +61,11 @@ export default {
             isLoading : true,
             duration : '',
             currentTime : '00:00',
+            songWords : {},
             playSong : {},
             showHistoryFlag : false,
-            songDetail : {}
+            songDetail : {},
+            showWords: false
         }
     },
 
@@ -77,6 +82,7 @@ export default {
     mounted() {
         this.getData(this.$route.query.id);
         this.getSongDetails(this.$route.query.id);
+        this.getSongWords(this.$route.query.id);
     },
 
     components: {
@@ -93,6 +99,10 @@ export default {
             'setPlaySong1',
             'setIsBelong1'
         ]),
+
+        showSongWords() {
+            this.showWords = !this.showWords;
+        },
 
         setStop() {
             let audio = document.getElementById('music');
@@ -123,12 +133,21 @@ export default {
             });
         },
 
+        getSongWords(songId) {
+            this.axios.get(this.API.lyric +'?id=' + songId).then( ( data ) => {
+                this.songWords = data.data;
+                this.songWords.lrc.lyric = this.songWords.lrc.lyric.replace(/\s/g,"<br/>").split("<br/>");
+            });
+        },
+
         time(secs) {
             let se = parseInt(secs),
                 mins = parseInt(se/60),
                 sec = parseInt(se%60);
             return (mins < 10 ? ('0' + mins) : mins)   + ':' + (sec < 10 ? ('0' + sec) : sec);
         },
+
+
 
         showHistory() {
             this.showHistoryFlag = !this.showHistoryFlag;
@@ -188,6 +207,7 @@ export default {
             setInterval( () => {
                 this.currentTime = this.time(audio.currentTime);
                 move.style.left = (audio.currentTime/audio.duration * 250) + 'px';
+                console.log(audio.currentTime);
                 if ( audio.currentTime >= audio.duration ) {
                     this.next();
                 }
@@ -417,4 +437,31 @@ export default {
     height: 25rem;
     background: #fff;
 }
+
+/* 歌词开始 */
+.song-words {
+    height: 20rem;
+    padding: 0 2rem;
+    margin: 10rem auto 0;
+    word-break: break-all;
+    overflow-y: auto;
+    color: #efefef;
+    text-align:center;
+}
+.song-words p {
+    line-height: 2;
+}
+.song-words .active {
+    color: #fff;
+
+}
+/* 歌词结束 */
+
 </style>
+
+<!-- 我刚刚用了腾讯的VConsole，在实体手机端装了控制台（以下操作均在BBC WIFI下进行）
+先测试了测试环境的H5，发现测试环境很少出现广告
+然后测试了正式环境。发现出现广告的页面多了一些东西
+
+现在是正式环境（2个域名） + BBC wifi 很大概率出现广告
+ -->
