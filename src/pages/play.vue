@@ -5,18 +5,18 @@
     <loading :isLoading="isLoading"></loading>
     <div class="show-box">
         <div class="pendant" v-if="!showWords"></div>
-        <div @click="showSongWords"  class="song-words" v-if="songWords.lrc&&showWords">
-            <p v-for="data in songWords.lrc.lyric" key="{{index}}" v-html="data.slice(data.indexOf(']')+1)" :data-time="data.slice(data.indexOf('[')+1, data.indexOf(']'))"></p>
-        </div>
-        <div class="turn-table" @click="showSongWords" v-else>
+        <div class="turn-table" @click="showSongWords" v-if="!showWords">
             <div class="img-box" v-bind:class="{stop : !isPlay}" >
                 <img :src="songDetail.al.picUrl"  v-if="songDetail.al" />
             </div>
         </div>
+        <div @click="showSongWords" class="song-words" id="songWords" v-if="songWords.lrc" :class="{top : showWords}">
+            <p v-for="(data, index) in songWords.lrc.lyric" key="{{index}}" v-html="data.slice(data.indexOf(']')+1)" :data-time="calSeconds(data.slice(data.indexOf('[')+1, data.indexOf(']')))" :class="{active: currentTime >= calSeconds(data.slice(data.indexOf('[')+1, data.indexOf(']'))) && currentTime < calSeconds(songWords.lrc.lyric[index+1].slice(data.indexOf('[')+1, data.indexOf(']'))) }"></p>
+        </div>
     </div>
     <div class="control-box">
         <div class="time-box">
-            <span v-html="currentTime"></span>
+            <span v-html="time(currentTime)"></span>
             <div class="play-line">
                 <span class="move" id="move"></span>
             </div>
@@ -65,7 +65,8 @@ export default {
             playSong : {},
             showHistoryFlag : false,
             songDetail : {},
-            showWords: false
+            showWords: false,
+            songTimeList : []
         }
     },
 
@@ -101,7 +102,13 @@ export default {
         ]),
 
         showSongWords() {
+            let songWordsDom = document.getElementById('songWords');
             this.showWords = !this.showWords;
+            if ( this.showWords ) {
+                songWordsDom.style.visibility = 'visible';
+            } else {
+                songWordsDom.style.visibility = 'hidden';
+            }
         },
 
         setStop() {
@@ -137,6 +144,11 @@ export default {
             this.axios.get(this.API.lyric +'?id=' + songId).then( ( data ) => {
                 this.songWords = data.data;
                 this.songWords.lrc.lyric = this.songWords.lrc.lyric.replace(/\s/g,"<br/>").split("<br/>");
+
+                this.songWords.lrc.lyric.forEach( ( item, index) => {
+                    this.songTimeList.push( this.calSeconds(item.slice(item.indexOf('[')+1, item.indexOf(']'))) );
+                });
+                console.log(this.songTimeList);
             });
         },
 
@@ -147,7 +159,12 @@ export default {
             return (mins < 10 ? ('0' + mins) : mins)   + ':' + (sec < 10 ? ('0' + sec) : sec);
         },
 
-
+        // 计算秒
+        calSeconds(time) {
+            let min = parseInt(time.slice(0, time.indexOf(':'))),
+                sec = parseInt(time.slice(time.indexOf(':')+1));
+            return min * 60 + sec;
+        },
 
         showHistory() {
             this.showHistoryFlag = !this.showHistoryFlag;
@@ -203,11 +220,22 @@ export default {
                     audio.play();
                 }
             }, 1000);
-
+            var  k = 0,
+                aa = {},
+                songWordsDom = document.getElementById('songWords');
             setInterval( () => {
-                this.currentTime = this.time(audio.currentTime);
+                this.currentTime = parseInt(audio.currentTime);
                 move.style.left = (audio.currentTime/audio.duration * 250) + 'px';
-                console.log(audio.currentTime);
+                this.songTimeList.forEach( (item, index, arr) => {
+                    if ( this.currentTime>item && item<arr[index+1] && aa[index]!==1 ) {
+                        aa[index] = 1;
+                        k += 22;
+                        console.log(document.getElementById('songWords'));
+                        if ( document.getElementById('songWords') != null ) {
+                            document.getElementById('songWords').scrollTop = k ;
+                        }
+                    }
+                });
                 if ( audio.currentTime >= audio.duration ) {
                     this.next();
                 }
@@ -440,20 +468,25 @@ export default {
 
 /* 歌词开始 */
 .song-words {
+    visibility:hidden;
     height: 20rem;
-    padding: 0 2rem;
-    margin: 10rem auto 0;
+    padding: 1rem 2rem;
+    margin: 0 auto;
     word-break: break-all;
     overflow-y: auto;
     color: #efefef;
     text-align:center;
 }
+.top {
+    margin: 8rem auto 0;
+}
 .song-words p {
+    opacity: .5;
     line-height: 2;
 }
 .song-words .active {
     color: #fff;
-
+    opacity: 1;
 }
 /* 歌词结束 */
 
