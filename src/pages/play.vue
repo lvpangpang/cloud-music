@@ -204,6 +204,7 @@ export default {
             move.addEventListener('touchstart', function(event) {
                 startX = event.targetTouches[0].pageX;
                 startY = event.targetTouches[0].pageY;
+                move.style.webkitTransform = 'translate3d('+ x +'px, 0px,0px)';
             }, false);
             move.addEventListener('touchmove', function(event) {
                 moveX = event.targetTouches[0].pageX;
@@ -211,16 +212,16 @@ export default {
                 if ( swipeX  && Math.abs(moveX - startX) >= Math.abs(moveY - startY) ) {
                     event.preventDefault();
                     swipeY = false;
-                    x = parseFloat(move.style.left) + event.targetTouches[0].pageX - startX;
-                    startX = event.targetTouches[0].pageX;
+                    x = parseFloat(move.style.transform.match(/\-?[0-9]+/g)[1]) + event.targetTouches[0].pageX - startX;
                     x = Math.min(Math.max(0 , x), 250);
-                    move.style.left =  x + 'px';
+                    startX = event.targetTouches[0].pageX;
+                    move.style.webkitTransform = 'translate3d('+ x +'px, 0px,0px)';
                 } else if ( swipeY && Math.abs(moveX - startX) < Math.abs(moveY - startY) ) {
                     swipeX = false;
                 }
             }, false);
             move.addEventListener('touchend', function(event) {
-                move.style.left =  x + 'px';
+                move.style.webkitTransform = 'translate3d('+ x +'px, 0px,0px)';
                 audio.currentTime = x/250 * audio.duration;
             }, false);
 
@@ -236,7 +237,7 @@ export default {
             // 歌词同步
             setInterval( () => {
                 this.currentTime = parseInt(audio.currentTime);
-                move.style.left = (audio.currentTime/audio.duration * 250) + 'px';
+                move.style.webkitTransform = 'translate3d('+ audio.currentTime/audio.duration * 250 +'px, 0px,0px)';
                 this.songTimeList.forEach( (item, index, arr) => {
                     if ( this.currentTime>item && item<arr[index+1] ) {
                         k = 24 * index;
