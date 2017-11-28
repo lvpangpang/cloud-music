@@ -97,6 +97,9 @@ export default {
             await this.getBanner();
             await this.getSongList();
             await this.getMvList();
+            // await Promise.all( [this.getBanner(), this.getSongList()]).then( () => {
+
+            // });
             this.isLoading = false;
             this.$nextTick(() => {
                 new lazyImg();

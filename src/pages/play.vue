@@ -11,7 +11,9 @@
             </div>
         </div>
         <div @click="showSongWords" class="song-words" id="songWords" v-if="songWords.lrc" :class="{top : showWords}">
-            <p v-for="(data, index) in songWords.lrc.lyric" key="{{index}}" v-html="data.slice(data.indexOf(']')+1)" :data-time="calSeconds(data.slice(data.indexOf('[')+1, data.indexOf(']')))" :class="{active: currentTime >= calSeconds(data.slice(data.indexOf('[')+1, data.indexOf(']'))) && currentTime < calSeconds(songWords.lrc.lyric[index+1].slice(data.indexOf('[')+1, data.indexOf(']'))) }"></p>
+            <div class="song-words-inner" id="songInner">
+                <p v-for="(data, index) in songWords.lrc.lyric" key="{{index}}" v-html="data.slice(data.indexOf(']')+1)" :class="{active: currentTime >= songTimeList[index] && currentTime < songTimeList[index+1] }" :data-time="songTimeList[index]"></p>
+            </div>
         </div>
     </div>
     <div class="control-box">
@@ -143,11 +145,14 @@ export default {
         getSongWords(songId) {
             this.axios.get(this.API.lyric +'?id=' + songId).then( ( data ) => {
                 this.songWords = data.data;
-                this.songWords.lrc.lyric = this.songWords.lrc.lyric.replace(/\s/g,"<br/>").split("<br/>");
+                console.log(data.data);
+                this.songWords.lrc.lyric = this.songWords.lrc.lyric.replace(/\n/g,"<br/>").split("<br/>");
 
-                this.songWords.lrc.lyric.forEach( ( item, index) => {
-                    this.songTimeList.push( this.calSeconds(item.slice(item.indexOf('[')+1, item.indexOf(']'))) );
+                this.songWords.lrc.lyric.forEach( ( item, index, arr) => {
+                    let time = this.calSeconds(item.slice(item.indexOf('[')+1, item.indexOf(']')));
+                    this.songTimeList.push( time );
                 });
+
                 console.log(this.songTimeList);
             });
         },
@@ -186,13 +191,15 @@ export default {
                 swipeX = true,
                 swipeY = false,
                 x = 0,
-                oThis = this;
+                oThis = this,
+                k = 100,
+                songWordsDom = null;
 
+            // 手动控制播放进度
             move.addEventListener('touchstart', function(event) {
                 startX = event.targetTouches[0].pageX;
                 startY = event.targetTouches[0].pageY;
             }, false);
-
             move.addEventListener('touchmove', function(event) {
                 moveX = event.targetTouches[0].pageX;
                 moveY = event.targetTouches[0].pageY;
@@ -207,7 +214,6 @@ export default {
                     swipeX = false;
                 }
             }, false);
-
             move.addEventListener('touchend', function(event) {
                 move.style.left =  x + 'px';
                 audio.currentTime = x/250 * audio.duration;
@@ -215,23 +221,20 @@ export default {
 
             setTimeout( () => {
                 audio = document.getElementById('music');
+                songWordsDom = document.getElementById('songInner');
                 this.duration = this.time(audio.duration);
                 if ( this.isPlay ) {
                     audio.play();
                 }
             }, 1000);
-            var  k = 0,
-                aa = {},
-                songWordsDom = document.getElementById('songWords');
             setInterval( () => {
                 this.currentTime = parseInt(audio.currentTime);
                 move.style.left = (audio.currentTime/audio.duration * 250) + 'px';
                 this.songTimeList.forEach( (item, index, arr) => {
-                    if ( this.currentTime>item && item<arr[index+1] && aa[index]!==1 ) {
-                        aa[index] = 1;
-                        k += 24;
-                        if ( document.getElementById('songWords') != null ) {
-                            document.getElementById('songWords').scrollTop = k ;
+                    if ( this.currentTime>item && item<arr[index+1] ) {
+                        k = 24 * index;
+                        if ( songWordsDom != null ) {
+                            songWordsDom.style.WebkitTransform = `translateY(${100-k}px)`;
                         }
                     }
                 });
@@ -477,7 +480,7 @@ export default {
     text-align:center;
 }
 .top {
-    margin: 8rem auto 0;
+    margin: 10rem auto 0;
 }
 .song-words p {
     opacity: .5;
@@ -487,13 +490,11 @@ export default {
     color: #fff;
     opacity: 1;
 }
+.song-words .song-words-inner {
+    transform: translateY(100px);
+    transition: all .6s;
+}
 /* 歌词结束 */
 
 </style>
 
-<!-- 我刚刚用了腾讯的VConsole，在实体手机端装了控制台（以下操作均在BBC WIFI下进行）
-先测试了测试环境的H5，发现测试环境很少出现广告
-然后测试了正式环境。发现出现广告的页面多了一些东西
-
-现在是正式环境（2个域名） + BBC wifi 很大概率出现广告
- -->
