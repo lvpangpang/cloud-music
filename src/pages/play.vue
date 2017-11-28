@@ -83,7 +83,7 @@ export default {
     },
 
     mounted() {
-        this.getData(this.$route.query.id);
+        this.getSong(this.$route.query.id);
         this.getSongDetails(this.$route.query.id);
         this.getSongWords(this.$route.query.id);
     },
@@ -103,6 +103,7 @@ export default {
             'setIsBelong1'
         ]),
 
+        // 控制歌词显示
         showSongWords() {
             let songWordsDom = document.getElementById('songWords');
             this.showWords = !this.showWords;
@@ -113,6 +114,8 @@ export default {
             }
         },
 
+
+        // 控制是否播放
         setStop() {
             let audio = document.getElementById('music');
             this.setIsPlay1(!this.isPlay);
@@ -123,13 +126,15 @@ export default {
             }
         },
 
-        getData(songId) {
+        // 获取歌曲信息
+        getSong(songId) {
             this.axios.get(this.API.play +'?id=' + songId).then( ( data ) => {
                 this.isLoading = false;
                 this.setPlaySong1(data.data.data[0]);
             });
         },
 
+        // 获取歌曲详细信息
         getSongDetails(songId) {
             this.axios.get(this.API.songDetail +'?ids=' + songId).then( ( data ) => {
                 this.songDetail = data.data.songs[0];
@@ -138,25 +143,23 @@ export default {
                     id : songId,
                     songName : this.songDetail.name
                 });
-                this.fn();
+                this.play();
             });
         },
 
+        // 获取歌词
         getSongWords(songId) {
             this.axios.get(this.API.lyric +'?id=' + songId).then( ( data ) => {
                 this.songWords = data.data;
-                console.log(data.data);
                 this.songWords.lrc.lyric = this.songWords.lrc.lyric.replace(/\n/g,"<br/>").split("<br/>");
-
                 this.songWords.lrc.lyric.forEach( ( item, index, arr) => {
                     let time = this.calSeconds(item.slice(item.indexOf('[')+1, item.indexOf(']')));
                     this.songTimeList.push( time );
                 });
-
-                console.log(this.songTimeList);
             });
         },
 
+        // 设置时间格式
         time(secs) {
             let se = parseInt(secs),
                 mins = parseInt(se/60),
@@ -171,16 +174,18 @@ export default {
             return min * 60 + sec;
         },
 
+        // 控制是否显示历史播放记录
         showHistory() {
             this.showHistoryFlag = !this.showHistoryFlag;
         },
 
         goPlay(songId) {
-            this.getData(songId);
+            this.getSong(songId);
             this.getSongDetails(songId);
         },
 
-        fn() {
+        // 控制audio的一系列行为
+        play() {
             let move = document.getElementById('move'),
                 audio = document.getElementById('audio'),
                 startLeft = 0,
@@ -227,6 +232,8 @@ export default {
                     audio.play();
                 }
             }, 1000);
+
+            // 歌词同步
             setInterval( () => {
                 this.currentTime = parseInt(audio.currentTime);
                 move.style.left = (audio.currentTime/audio.duration * 250) + 'px';
@@ -244,6 +251,7 @@ export default {
             }, 1000);
         },
 
+        // 前一首
         perv() {
             if ( this.playSongIndex===0 ) {
                 this.setPlaySongIndex1(this.historyList.length-1);
@@ -253,6 +261,7 @@ export default {
             this.goPlay(this.historyList[this.playSongIndex].id);
         },
 
+        // 后一首
         next() {
             // 单曲循环
             if ( this.isBelong ) {
@@ -266,7 +275,6 @@ export default {
             }
             this.goPlay(this.historyList[this.playSongIndex].id);
         }
-
     }
 }
 </script>
