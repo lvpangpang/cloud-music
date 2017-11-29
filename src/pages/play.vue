@@ -83,9 +83,7 @@ export default {
     },
 
     mounted() {
-        this.getSong(this.$route.query.id);
-        this.getSongDetails(this.$route.query.id);
-        this.getSongWords(this.$route.query.id);
+        this.goPlay(this.$route.query.id);
     },
 
     components: {
@@ -156,6 +154,9 @@ export default {
                     let time = this.calSeconds(item.slice(item.indexOf('[')+1, item.indexOf(']')));
                     this.songTimeList.push( time );
                 });
+                this.$nextTick( ()=> {
+                    document.getElementById('songInner').style.WebkitTransform = 'translateY(100px)';
+                });
             });
         },
 
@@ -182,6 +183,7 @@ export default {
         goPlay(songId) {
             this.getSong(songId);
             this.getSongDetails(songId);
+            this.getSongWords(songId);
         },
 
         // 控制audio的一系列行为
@@ -240,7 +242,7 @@ export default {
                 move.style.webkitTransform = 'translate3d('+ audio.currentTime/audio.duration * 250 +'px, 0px,0px)';
                 this.songTimeList.forEach( (item, index, arr) => {
                     if ( this.currentTime>item && item<arr[index+1] ) {
-                        k = 24 * index;
+                        k = 28 * index;
                         if ( songWordsDom != null ) {
                             songWordsDom.style.WebkitTransform = `translateY(${100-k}px)`;
                         }
@@ -493,7 +495,7 @@ export default {
 }
 .song-words p {
     opacity: .5;
-    line-height: 2;
+    line-height: 28px;
 }
 .song-words .active {
     color: #fff;
