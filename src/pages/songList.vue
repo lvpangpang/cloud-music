@@ -5,7 +5,7 @@
         <span>全部歌单</span>
         <router-link to="class" class="more-btn">选择分类></router-link>
     </h2>
-    <div class="song-list clearfix">
+    <div class="song-list clearfix" v-if="songList.length>0">
         <router-link  :to="'songListDetails?id=' + item.id" class="song-items" v-for="(item, index) in songList" key={{index}}>
             <div class="img-box">
                 <p class="com-nums" v-html="item.playCount"></p>
@@ -14,16 +14,21 @@
             <p class="songs-der com-two-overflow">{{item.name}}</p>
         </router-link>
     </div>
+    <div class="com-no-num" v-else>
+       <img src="../images/com-no-num.png" alt="" >
+    </div>
 </div>
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
 import loading from '@/components/loading';
 export default {
     name: 'songList',
     data() {
         return {
             isLoading : true,
+            cat : this.$route.query.cat || '全部',
             songList : []
         }
     },
@@ -38,10 +43,13 @@ export default {
     },
 
     methods : {
+        ...mapActions([
+            'setChooseClass1'
+        ]),
         getSongList() {
-            this.axios.get(this.API.highquality).then( ( data ) => {
+            this.setChooseClass1(this.cat);
+            this.axios.get(this.API.highquality + '?cat=' + this.cat  ).then( ( data ) => {
                 this.songList = data.data.playlists;
-                console.log(data.data.playlists);
                 this.isLoading = false;
             });
         }

@@ -15,7 +15,10 @@ const store = new Vuex.Store({
         // 播放歌曲对象
         playSong : {},
         // 历史播放记录
-        historyList : []
+        historyList : [],
+
+        // 选择歌单分类
+        chooseClass : '',
     },
     mutations : {
 
@@ -58,6 +61,10 @@ const store = new Vuex.Store({
 
         setPlaySongIndex( state, playSongIndex )   {
             state.playSongIndex = playSongIndex;
+        },
+
+        setChooseClass( state, className ) {
+            state.chooseClass = className;
         }
 
     },
@@ -81,6 +88,9 @@ const store = new Vuex.Store({
         },
         setPlaySong1( context, song  ) {
             context.commit('setPlaySong', song );
+        },
+        setChooseClass1( context, className  ) {
+            context.commit('setChooseClass', className );
         }
     }
 });
