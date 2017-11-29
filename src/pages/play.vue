@@ -480,7 +480,7 @@ export default {
 /* 歌词开始 */
 .song-words {
     visibility:hidden;
-    height: 20rem;
+    height: 16rem;
     padding: 1rem 2rem;
     margin: 0 auto;
     word-break: break-all;

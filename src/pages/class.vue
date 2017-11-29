@@ -1,7 +1,7 @@
 <template>
 <div class="com-nav-top">
     <navHeader name="选择分类"></navHeader>
-    <router-link to="songList" class="all-songs">全部歌曲</router-link>
+    <router-link to="songList" class="all-songs" :class="{active : chooseClass==='' || chooseClass==='全部' }">全部歌曲</router-link>
 
     <div class="cat-box clearfix">
         <div class="cat-header">风格</div>
@@ -56,6 +56,7 @@ export default {
     },
 
     mounted() {
+        console.log( this.chooseClass );
     },
 
     components: {
@@ -70,6 +71,7 @@ export default {
     margin-top: 4rem;
 }
 .all-songs {
+    position: relative;
     display: block;
     width: 90%;
     line-height: 3rem;
@@ -88,7 +90,7 @@ export default {
     border-top: 1px solid #dedede;
     background: #fff;
 }
-.cat-box .cat-header {
+.cat-header {
     float: left;
     width: 25%;
     height: 4rem;
@@ -99,7 +101,8 @@ export default {
     border-right: 1px solid #dedede;
     border-bottom: 1px solid #dedede;
 }
-.cat-box .cat-item {
+.cat-item {
+    position: relative;
     float: left;
     width: 25%;
     height: 2rem;
@@ -109,9 +112,15 @@ export default {
     border-right: 1px solid #dedede;
     border-bottom: 1px solid #dedede;
 }
-.cat-box .active {
+.active:after {
+    content: '';
+    position: absolute;
+    left: -1px;
+    top: -1px;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #d43c33;
     color: #d43c33;
 }
-
-
 </style>
