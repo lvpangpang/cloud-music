@@ -3,7 +3,7 @@
     <loading :isLoading="isLoading"></loading>
     <h2 class="h2" v-cloak v-if="!isLoading">
         <span>全部歌单</span>
-        <a href="javascript:;" class="more-btn">选择分类</a>
+        <router-link to="class" class="more-btn">选择分类></router-link>
     </h2>
     <div class="song-list clearfix">
         <router-link  :to="'songListDetails?id=' + item.id" class="song-items" v-for="(item, index) in songList" key={{index}}>

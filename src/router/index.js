@@ -39,6 +39,12 @@ export default new Router({
             path: '/play',
             name: 'play',
             component: resolve => require(['../pages/play.vue'], resolve)
+        },
+
+        {
+            path: '/class',
+            name: 'class',
+            component: resolve => require(['../pages/class.vue'], resolve)
         }
     ]
 });
