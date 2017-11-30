@@ -124,10 +124,33 @@ export default {
             }
         },
 
+        // 设置时间格式
+        time(secs) {
+            let se = parseInt(secs),
+                mins = parseInt(se/60),
+                sec = parseInt(se%60);
+            return (mins < 10 ? ('0' + mins) : mins)   + ':' + (sec < 10 ? ('0' + sec) : sec);
+        },
+
+        // 计算秒
+        calSeconds(time) {
+            let min = parseInt(time.slice(0, time.indexOf(':'))),
+                sec = parseInt(time.slice(time.indexOf(':')+1));
+            return min * 60 + sec;
+        },
+
+        // 控制是否显示历史播放记录
+        showHistory() {
+            this.showHistoryFlag = !this.showHistoryFlag;
+        },
+
         // 获取歌曲信息
         getSong(songId) {
+            let audio = document.getElementById('music');
+            audio.src = '';
             this.axios.get(this.API.play +'?id=' + songId).then( ( data ) => {
                 this.isLoading = false;
+                audio.src = data.data.data[0].url;
                 this.setPlaySong1(data.data.data[0]);
             });
         },
@@ -159,26 +182,6 @@ export default {
                     document.getElementById('songInner').style.WebkitTransform = 'translateY(100px)';
                 });
             });
-        },
-
-        // 设置时间格式
-        time(secs) {
-            let se = parseInt(secs),
-                mins = parseInt(se/60),
-                sec = parseInt(se%60);
-            return (mins < 10 ? ('0' + mins) : mins)   + ':' + (sec < 10 ? ('0' + sec) : sec);
-        },
-
-        // 计算秒
-        calSeconds(time) {
-            let min = parseInt(time.slice(0, time.indexOf(':'))),
-                sec = parseInt(time.slice(time.indexOf(':')+1));
-            return min * 60 + sec;
-        },
-
-        // 控制是否显示历史播放记录
-        showHistory() {
-            this.showHistoryFlag = !this.showHistoryFlag;
         },
 
         goPlay(songId) {
@@ -241,16 +244,22 @@ export default {
             setInterval( () => {
                 this.currentTime = parseInt(audio.currentTime);
                 move.style.webkitTransform = 'translate3d('+ audio.currentTime/audio.duration * 250 +'px, 0px,0px)';
-                this.songTimeList.forEach( (item, index, arr) => {
-                    if ( this.currentTime>item && item<arr[index+1] ) {
-                        k = 25 * index;
-                        if ( songWordsDom != null ) {
-                            songWordsDom.style.WebkitTransform = `translateY(${100-k}px)`;
+                if ( this.isPlay ) {
+                    this.songTimeList.forEach( (item, index, arr) => {
+                        if ( this.currentTime>item && item<arr[index+1] ) {
+                            k = 25 * index;
+                            if ( songWordsDom != null ) {
+                                songWordsDom.style.WebkitTransform = `translateY(${100-k}px)`;
+                            }
+                        }
+                    });
+                    if ( audio.currentTime >= audio.duration ) {
+                        if ( this.isBelong ) {
+                            this.beLongNext();
+                        } else {
+                            this.next();
                         }
                     }
-                });
-                if ( audio.currentTime >= audio.duration ) {
-                    this.next();
                 }
             }, 1000);
         },
@@ -267,18 +276,18 @@ export default {
 
         // 后一首
         next() {
-            // 单曲循环
-            if ( this.isBelong ) {
-                this.goPlay(this.historyList[this.playSongIndex].id);
-                return;
-            }
             if ( this.playSongIndex===this.historyList.length-1 ) {
                 this.setPlaySongIndex1(0);
             } else {
                 this.setPlaySongIndex1(this.playSongIndex+1);
             }
             this.goPlay(this.historyList[this.playSongIndex].id);
-        }
+        },
+
+        // 单曲循环的时候自动跳转到后一首
+        beLongNext() {
+            this.goPlay(this.historyList[this.playSongIndex].id);
+        },
     }
 }
 </script>
