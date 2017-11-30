@@ -81,6 +81,7 @@ npm run dev
 <img src="https://github.com/lvpangpang/cloud-music/blob/master/images/img%20(7).png" width="360" height="500"/>
 
 <img src="https://github.com/lvpangpang/cloud-music/blob/master/images/img%20(1).png" width="360" height="619"/>
+<img src="https://github.com/lvpangpang/cloud-music/blob/master/images/img%20(8).png" width="360" height="619"/>
 
 
 
