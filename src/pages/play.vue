@@ -243,7 +243,7 @@ export default {
                 move.style.webkitTransform = 'translate3d('+ audio.currentTime/audio.duration * 250 +'px, 0px,0px)';
                 this.songTimeList.forEach( (item, index, arr) => {
                     if ( this.currentTime>item && item<arr[index+1] ) {
-                        k = 28 * index;
+                        k = 25 * index;
                         if ( songWordsDom != null ) {
                             songWordsDom.style.WebkitTransform = `translateY(${100-k}px)`;
                         }
@@ -483,8 +483,8 @@ export default {
 /* 歌词开始 */
 .song-words {
     visibility:hidden;
-    height: 16rem;
-    padding: 1rem 2rem;
+    height: 15.5rem;
+    padding: 0 2rem;
     margin: 0 auto;
     word-break: break-all;
     overflow-y: auto;
@@ -496,7 +496,8 @@ export default {
 }
 .song-words p {
     opacity: .5;
-    line-height: 28px;
+    height: 25px;
+    line-height: 25px;
 }
 .song-words .active {
     color: #fff;
