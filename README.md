@@ -71,17 +71,13 @@ npm run dev
 
 # 部分截图
 
-<img src="https://github.com/lvpangpang/cloud-music/blob/master/images/img%20(2).png" width="300" height="400"/>
-<img src="https://github.com/lvpangpang/cloud-music/blob/master/images/img%20(6).png" width="300" height="400"/>
+<img src="https://github.com/lvpangpang/cloud-music/blob/master/images/img%20(2).png" width="300" height="400"/><img src="https://github.com/lvpangpang/cloud-music/blob/master/images/img%20(6).png" width="300" height="400"/>
 
-<img src="https://github.com/lvpangpang/cloud-music/blob/master/images/img%20(4).png" width="300" height="400"/>
-<img src="https://github.com/lvpangpang/cloud-music/blob/master/images/img%20(5).png" width="300" height="400"/>
+<img src="https://github.com/lvpangpang/cloud-music/blob/master/images/img%20(4).png" width="300" height="400"/><img src="https://github.com/lvpangpang/cloud-music/blob/master/images/img%20(5).png" width="300" height="400"/>
 
-<img src="https://github.com/lvpangpang/cloud-music/blob/master/images/img%20(3).png" width="300" height="400"/>
-<img src="https://github.com/lvpangpang/cloud-music/blob/master/images/img%20(7).png" width="300" height="400"/>
+<img src="https://github.com/lvpangpang/cloud-music/blob/master/images/img%20(3).png" width="300" height="400"/><img src="https://github.com/lvpangpang/cloud-music/blob/master/images/img%20(7).png" width="300" height="400"/>
 
-<img src="https://github.com/lvpangpang/cloud-music/blob/master/images/img%20(1).png" width="300" height="619"/>
-<img src="https://github.com/lvpangpang/cloud-music/blob/master/images/img%20(8).png" width="300" height="619"/>
+<img src="https://github.com/lvpangpang/cloud-music/blob/master/images/img%20(1).png" width="300" height="619"/><img src="https://github.com/lvpangpang/cloud-music/blob/master/images/img%20(8).png" width="300" height="619"/>
 
 
 
