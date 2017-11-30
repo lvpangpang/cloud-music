@@ -147,6 +147,7 @@ export default {
 
         // 获取歌词
         getSongWords(songId) {
+            this.songTimeList = [];
             this.axios.get(this.API.lyric +'?id=' + songId).then( ( data ) => {
                 this.songWords = data.data;
                 this.songWords.lrc.lyric = this.songWords.lrc.lyric.replace(/\n/g,"<br/>").split("<br/>");
@@ -216,8 +217,8 @@ export default {
                     swipeY = false;
                     x = parseFloat(move.style.transform.match(/\-?[0-9]+/g)[1]) + event.targetTouches[0].pageX - startX;
                     x = Math.min(Math.max(0 , x), 250);
-                    startX = event.targetTouches[0].pageX;
                     move.style.webkitTransform = 'translate3d('+ x +'px, 0px,0px)';
+                    startX = event.targetTouches[0].pageX;
                 } else if ( swipeY && Math.abs(moveX - startX) < Math.abs(moveY - startY) ) {
                     swipeX = false;
                 }

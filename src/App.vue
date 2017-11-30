@@ -10,6 +10,7 @@
             <router-link to="/" class="nav-item" :class="{active : activeIndex===2}">主播电台</router-link>
             <router-link to="/" class="nav-item" :class="{active : activeIndex===3}">排行榜</router-link>
         </nav>
+
         <transition name="fade">
             <router-view></router-view>
         </transition>
