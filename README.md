@@ -67,19 +67,16 @@ npm run dev
 
 # 部分截图
 
-<img src="https://github.com/lvpangpang/weinihaigou/blob/master/pics/img%20(1).png" width="360" height="500"/><img src="https://github.com/lvpangpang/weinihaigou/blob/master/pics/img%20(2).png" width="360" height="500"/>
+<img src="https://github.com/lvpangpang/weinihaigou/blob/master/pics/img%20(2).png" width="360" height="500"/>
+<img src="https://github.com/lvpangpang/weinihaigou/blob/master/pics/img%20(6).png" width="360" height="500"/>
 
-<img src="https://github.com/lvpangpang/weinihaigou/blob/master/pics/img%20(3).png" width="360" height="500"/><img src="https://github.com/lvpangpang/weinihaigou/blob/master/pics/img%20(4).png" width="360" height="500"/>
+<img src="https://github.com/lvpangpang/weinihaigou/blob/master/pics/img%20(4).png" width="360" height="500"/>
+<img src="https://github.com/lvpangpang/weinihaigou/blob/master/pics/img%20(5).png" width="360" height="500"/>
 
-<img src="https://github.com/lvpangpang/weinihaigou/blob/master/pics/img%20(5).png" width="360" height="500"/><img src="https://github.com/lvpangpang/weinihaigou/blob/master/pics/img%20(6).png" width="360" height="500"/>
+<img src="https://github.com/lvpangpang/weinihaigou/blob/master/pics/img%20(3).png" width="360" height="500"/>
+<img src="https://github.com/lvpangpang/weinihaigou/blob/master/pics/img%20(7).png" width="360" height="500"/>
 
-<img src="https://github.com/lvpangpang/weinihaigou/blob/master/pics/img%20(7).png" width="360" height="619"/><img src="https://github.com/lvpangpang/weinihaigou/blob/master/pics/img%20(8).png" width="360" height="500"/>
-
-<img src="https://github.com/lvpangpang/weinihaigou/blob/master/pics/img%20(9).png" width="360" height="500"/><img src="https://github.com/lvpangpang/weinihaigou/blob/master/pics/img%20(10).png" width="360" height="500"/>
-
-<img src="https://github.com/lvpangpang/weinihaigou/blob/master/pics/img%20(11).png" width="360" height="500"/><img src="https://github.com/lvpangpang/weinihaigou/blob/master/pics/img%20(12).png" width="360" height="500"/>
-
-<img src="https://github.com/lvpangpang/weinihaigou/blob/master/pics/img(13).png" width="360" height="500"/><img src="https://github.com/lvpangpang/weinihaigou/blob/master/pics/img(14).png" width="360" height="500"/>
+<img src="https://github.com/lvpangpang/weinihaigou/blob/master/pics/img%20(1).png" width="360" height="619"/>
 
 
 
