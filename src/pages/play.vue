@@ -78,7 +78,8 @@ export default {
             'historyList',
             'playSongId',
             'playSongIndex',
-            'isBelong'
+            'isBelong',
+            'currentTime1'
         ])
     },
 
@@ -98,7 +99,8 @@ export default {
             'setPlaySongId1',
             'setPlaySongIndex1',
             'setPlaySong1',
-            'setIsBelong1'
+            'setIsBelong1',
+            'setCurrentTime1'
         ]),
 
         // 控制歌词显示
@@ -164,6 +166,10 @@ export default {
                     id : songId,
                     songName : this.songDetail.name
                 });
+                let audio = document.getElementById('music');
+                if ( this.$route.query.back ) {
+                    audio.currentTime = this.currentTime1;
+                }
                 this.play();
             });
         },
@@ -243,6 +249,7 @@ export default {
             // 歌词同步
             setInterval( () => {
                 this.currentTime = parseInt(audio.currentTime);
+                this.setCurrentTime1(this.currentTime);
                 move.style.webkitTransform = 'translate3d('+ audio.currentTime/audio.duration * 250 +'px, 0px,0px)';
                 if ( this.isPlay ) {
                     this.songTimeList.forEach( (item, index, arr) => {

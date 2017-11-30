@@ -18,7 +18,7 @@
             <div class="nav-top nav-text">16</div>
             <p>每日歌曲推荐</p>
         </router-link>
-        <router-link :to="'/play?id='+ playSongId" class="nav-item">
+        <router-link :to="'/play?id='+ playSongId + '&back=1'" class="nav-item">
             <img src="../images/hot.gif" class="nav-top" />
             <p>正在播放</p>
         </router-link>
