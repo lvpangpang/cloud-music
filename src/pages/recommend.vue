@@ -45,12 +45,13 @@
             <a href="javascript:;" class="more-btn">更多></a>
         </h2>
         <div class="song-list clearfix">
-            <a href="javascript:;" class="song-items song-items1" v-for="(item, index) in mvList">
+            <router-link :to="'mvPlay?id=' + item.id" class="song-items song-items1" v-for="(item, index) in mvList">
                 <div class="img-box">
                     <img :data-src="item.picUrl" alt="" />
                 </div>
                 <p class="songs-der com-two-overflow">{{item.name}}</p>
-            </a>
+                <p v-html="item.artistName" class="art-name"></p>
+            </router-link>
         </div>
     </div>
 
@@ -121,7 +122,6 @@ export default {
                 this.axios.get(this.API.personalized).then( ( data ) => {
                     resolve();
                     this.songList = data.data.result;
-                    console.log(this.songList);
                 });
             });
         },
@@ -130,6 +130,7 @@ export default {
             return new Promise( (resolve, reject) => {
                 this.axios.get(this.API.personalizedMv).then( ( data ) => {
                     resolve();
+                    console.log(data.data);
                     this.mvList = data.data.result;
                 });
             });
@@ -210,7 +211,6 @@ export default {
     float: left;
     margin: 0 0 .5rem 1%;
     width: 32%;
-    height: 11rem;
     color: #333;
     overflow: hidden;
 }
@@ -228,6 +228,10 @@ export default {
     margin-top: .2rem;
     height: 2.5rem;
     padding: 0 .3rem;
+}
+.recommend-box .art-name {
+    color: #808080;
+    font-size: .8rem;
 }
 
 </style>

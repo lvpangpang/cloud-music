@@ -24,9 +24,14 @@ let API = {
     search : pxy + '/search',
     suggest : pxy + '/search/suggest',
 
-// 播放
+// 播放音乐
     play : pxy + '/music/url',
     songDetail : pxy + '/song/detail',
     lyric : pxy + '/lyric',
+
+// 播放MV
+    mv : pxy + '/mv',
+    mvUrl : pxy + '/mv/url'
+
 };
 export default API;

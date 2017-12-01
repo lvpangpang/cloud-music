@@ -45,6 +45,12 @@ export default new Router({
             path: '/class',
             name: 'class',
             component: resolve => require(['../pages/class.vue'], resolve)
+        },
+
+        {
+            path: '/mvPlay',
+            name: 'mvPlay',
+            component: resolve => require(['../pages/mvPlay.vue'], resolve)
         }
     ]
 });
