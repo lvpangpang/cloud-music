@@ -32,6 +32,15 @@
                     <p v-html="mv.name" class="mv-name"></p>
                     <p>歌手：<span v-html="mv.artistName"></span></p>
                 </div>
+                <div class="sub-count">
+                    收藏数 <span v-html="mv.subCount"></span>
+                </div>
+            </div>
+            <div class="nums-box">
+                <p>播放数：<span v-html="mv.playCount"></span></p>
+                <p>发行：<span v-html="mv.publishTime"></span></p>
+                <p v-html="mv.briefDesc"></p>
+                <p v-html="mv.desc"></p>
             </div>
         </div>
     </div>
@@ -45,7 +54,7 @@ import loading from '@/components/loading';
 import navHeader from '@/components/nav';
 
 export default {
-    name : 'index',
+    name : 'mvPlay',
 
     data() {
         return {
@@ -223,10 +232,14 @@ video {
     justify-content: space-between;
     align-items: center;
     height: 5rem;
-    padding: 0 .5rem;
+    padding: 0 1rem;
+    border-bottom: 1px solid #dedede;
 }
 .mv-name {
     font-size: 1.2rem;
+}
+.nums-box {
+    padding: 1rem;
 }
 /* 导航结束 */
 
