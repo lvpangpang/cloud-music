@@ -7,7 +7,7 @@
     <div class="play-box" v-if="mv.brs">
         <video :src="this.API.mvUrl + '?url=' + (mv.brs[1080] || mv.brs[720] || mv.brs[480] || mv.brs[240])"  v-if="mv.brs" autoplay loop id="video"></video>
         <div class="operate-box">
-            <a href="javascript:;" class="go-play" @click="setStop":class="{'no-playying' : !isPlay}"></a>
+            <a href="javascript:;" class="go-play" @click="setStop":class="{'no-playying' : !isPlayMv}"></a>
             <div class="time-box">
                 <span v-html="calTime(currentTime, 1)"></span>
                 <div class="play-line">
@@ -61,16 +61,19 @@ export default {
             isLoading : true,
             mv : {},
             currentTime : 0,
-            isPlay : true,
+            isPlayMv : true,
             isAllScreen : false
         }
     },
 
     computed : {
-
     },
 
     mounted() {
+
+        // 暂停正在播放歌曲
+        let audio = document.getElementById('music');
+        audio.pause();
         this.getData();
     },
 
@@ -84,7 +87,7 @@ export default {
                 let video = document.getElementById('video'),
                     move = document.getElementById('move');
                 setInterval( () => {
-                    if ( this.isPlay ) {
+                    if ( this.isPlayMv ) {
                         this.currentTime = parseInt(video.currentTime);
                         move.style.webkitTransform = 'translate3d('+ this.currentTime/(this.mv.duration/1000) * 180 +'px, 0px,0px)';
                     }
@@ -105,8 +108,8 @@ export default {
         // 控制是否播放
         setStop() {
             let video = document.getElementById('video');
-            this.isPlay = !this.isPlay;
-            if ( this.isPlay ) {
+            this.isPlayMv = !this.isPlayMv;
+            if ( this.isPlayMv ) {
                 video.play();
             } else {
                 video.pause();
