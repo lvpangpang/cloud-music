@@ -45,7 +45,7 @@
             <a href="javascript:;" class="more-btn">更多></a>
         </h2>
         <div class="song-list clearfix">
-            <router-link :to="'mvPlay?id=' + item.id" class="song-items song-items1" v-for="(item, index) in mvList">
+            <router-link :to="'mvPlay?id=' + item.id" class="song-items song-items1" v-for="(item, index) in mvList" key={{index}}>
                 <div class="img-box">
                     <img :data-src="item.picUrl" alt="" />
                 </div>
