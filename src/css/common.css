@@ -14,9 +14,24 @@ body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,
     margin-top: 3rem;
 }
 .play-mark {
+    position: relative;
     width: 1.5rem;
     height: 1.5rem;
-    background: url(../images/play1.png) no-repeat center / 1.5rem 1.5rem;
+    border: 1px solid #d43c33;
+}
+.play-mark:after {
+    content: '';
+    position: absolute;
+    left: .5rem;
+    top: .4rem;
+    width: 0;
+    height: 0;
+    width: 0;
+    height: 0;
+    border-top: .3rem solid transparent;
+    border-left: .6rem solid #d43c33;
+    border-bottom: .3rem solid transparent;
+
 }
 
 .search-item {

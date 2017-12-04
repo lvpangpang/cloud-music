@@ -12,8 +12,7 @@
                     <span v-html="data.album.name"></span>
                 </p>
             </div>
-            <div class="play-mark">
-            </div>
+            <router-link :to="'mvPlay?id=' + data.mvid" class="play-mark" v-if="data.mvid"></router-link>
         </router-link>
     </div>
 </div>
@@ -54,3 +53,7 @@ export default {
     }
 }
 </script>
+
+<!-- github https://github.com/lvpangpang
+博客 http://www.qdfuns.com/house/15098/note（目前正在往掘金迁移）
+掘金 https://juejin.im/user/57f4f6b9128fe1005444e434 -->

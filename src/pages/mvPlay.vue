@@ -5,7 +5,7 @@
     <loading :isLoading="isLoading"></loading>
 
     <div class="play-box">
-        <video :src="this.API.mvUrl + '?url=' + mv.brs[480]"  v-if="mv.brs" autoplay loop id="video"></video>
+        <video :src="this.API.mvUrl + '?url=' + (mv.brs[1080] || mv.brs[720] || mv.brs[480] || mv.brs[240])"  v-if="mv.brs" autoplay loop id="video"></video>
         <div class="operate-box" v-if="mv.brs">
             <a href="javascript:;" class="go-play" @click="setStop":class="{'no-playying' : !isPlay}"></a>
             <div class="time-box">

@@ -33,7 +33,7 @@
                             <span v-html="data.al.name"></span>
                         </p>
                     </div>
-                    <div class="play-mark"></div>
+                    <router-link :to="'mvPlay?id=' + data.mv" class="play-mark" v-if="data.mv"></router-link>
                 </router-link>
             </div>
         </div>
@@ -68,7 +68,7 @@ export default {
     methods : {
         getSongList() {
             this.axios.get( this.API.playlistdetail + '?id=' + this.$route.query.id ).then( ( data ) => {
-                console.log(data.data.playlist);
+                console.log(data.data.playlist.tracks);
                 this.songList = data.data.playlist.tracks;
                 this.songDetails = data.data.playlist;
                 this.isLoading = false;
