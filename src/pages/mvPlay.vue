@@ -4,9 +4,9 @@
     <navHeader :name="mv.name"></navHeader>
     <loading :isLoading="isLoading"></loading>
 
-    <div class="play-box">
+    <div class="play-box" v-if="mv.brs">
         <video :src="this.API.mvUrl + '?url=' + (mv.brs[1080] || mv.brs[720] || mv.brs[480] || mv.brs[240])"  v-if="mv.brs" autoplay loop id="video"></video>
-        <div class="operate-box" v-if="mv.brs">
+        <div class="operate-box">
             <a href="javascript:;" class="go-play" @click="setStop":class="{'no-playying' : !isPlay}"></a>
             <div class="time-box">
                 <span v-html="calTime(currentTime, 1)"></span>
@@ -19,13 +19,13 @@
         </div>
     </div>
 
-    <div class="details-nav">
+    <div class="details-nav" v-if="mv.brs">
         <a href="javascript:;" class="nav-item active">详情</a>
         <a href="javascript:;" class="nav-item">评论</a>
         <a href="javascript:;" class="nav-item">相关MV</a>
     </div>
 
-    <div class="details-box">
+    <div class="details-box" v-if="mv.brs">
         <div class="detail-box">
             <div class="header-box">
                 <div class="name-author">
