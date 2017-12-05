@@ -111,11 +111,9 @@ export default {
     },
 
     mounted() {
-
         // 暂停正在播放歌曲（如果有的话）
         let audio = document.getElementById('music');
         audio.pause();
-
         this.getData();
     },
 
