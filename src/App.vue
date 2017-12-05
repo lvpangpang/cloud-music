@@ -7,7 +7,7 @@
         <nav class="nav-box" v-if="activeIndex<=4">
             <router-link to="/recommend" class="nav-item" :class="{active : activeIndex===0}">个性推荐</router-link>
             <router-link :to="'/songList?cat=' + chooseClass" class="nav-item" :class="{active : activeIndex===1}">歌单</router-link>
-            <router-link to="radio" class="nav-item" :class="{active : activeIndex===2}">主播电台</router-link>
+            <router-link to="/radio" class="nav-item" :class="{active : activeIndex===2}">主播电台</router-link>
             <router-link to="/rank" class="nav-item" :class="{active : activeIndex===3}">排行榜</router-link>
         </nav>
 
@@ -15,10 +15,12 @@
             <router-view></router-view>
         </transition>
 
+        <!-- 搜索组件 -->
         <transition name="show-search">
             <search v-show="searching" v-on:setSearch="setSearch"></search>
         </transition>
 
+        <!-- 音乐播放 -->
         <audio :src='playSong.url' controls="controls" preload id="music" hidden></audio>
 
     </div>

@@ -257,6 +257,7 @@ export default {
     top: 3rem;
     width: 100%;
     height: 19rem;
+    background: #000;
 }
 .operate-box {
     display: flex;
