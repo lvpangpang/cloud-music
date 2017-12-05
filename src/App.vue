@@ -145,15 +145,16 @@ export default {
     top: 4.5rem;
     width: 100%;
     height: 3rem;
+    padding: 0 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     background: #fff;
 }
 .nav-box .nav-item {
-    width: 25%;
     line-height: 3rem;
     font-size: 1.2rem;
+    padding: 0 .5rem;
     text-align: center;
     color: #333;
     border-bottom: 1px solid #fff;

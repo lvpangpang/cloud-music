@@ -1,10 +1,7 @@
 <template>
 <div class="com-body-top">
     <loading :isLoading="isLoading"></loading>
-    <div>
-        <h2>云音乐官方榜</h2>
-        <div></div>
-    </div>
+    未完待续...
 
 
 
