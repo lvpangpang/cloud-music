@@ -32,7 +32,8 @@ let API = {
 // 播放MV
     mv : pxy + '/mv',
     mvUrl : pxy + '/mv/url',
-    commentMv : pxy + '/comment/mv'
+    commentMv : pxy + '/comment/mv',
+    simiMv : pxy + '/simi/mv'
 
 };
 export default API;

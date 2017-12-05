@@ -21,7 +21,7 @@
     <div class="details-nav" v-if="mv.brs">
         <a href="javascript:;" class="nav-item" @click="showDetails1" :class="{active : showDetails}">详情</a>
         <a href="javascript:;" class="nav-item" @click="showCommit1" :class="{active : showCommit}">评论</a>
-        <a href="javascript:;" class="nav-item">相关MV</a>
+        <a href="javascript:;" class="nav-item" @click="showSimiMv1" :class="{active : showSimiMv}">相关MV</a>
     </div>
 
     <div class="details-box" v-if="mv.brs">
@@ -63,6 +63,20 @@
             </div>
         </div>
 
+
+         <!-- 相似mv -->
+        <div v-show="showSimiMv" class="commit-box">
+            <div class="simi-item clearfix" v-for="(item, index) in simiMvList" key={{index}} @click="cutMv(item.id)">
+                <div class="mv-img-box">
+                    <img :src="item.cover" alt="">
+                </div>
+                <div class="mv-details-box">
+                    <p v-html="item.name"></p>
+                    <p v-html="item.artistName"></p>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 </div>
@@ -80,14 +94,16 @@ export default {
         return {
             isLoading : true,
             isLoading1 : false,//控制下面tab切换
+            mvId : this.$route.query.id,
             mv : {},
             currentTime : 0,
             isPlayMv : true,
             isAllScreen : false,
             commentList : [],
+            simiMvList : [],
             showDetails : true,
             showCommit : false,
-            showConformMv : false
+            showSimiMv : false
         }
     },
 
@@ -112,6 +128,7 @@ export default {
             this.$nextTick( () => {
                 let video = document.getElementById('video'),
                     move = document.getElementById('move');
+                this.showDetails1();
                 setInterval( () => {
                     if ( this.isPlayMv ) {
                         this.currentTime = parseInt(video.currentTime);
@@ -124,7 +141,7 @@ export default {
         // 获取MV信息
         getMv() {
             return new Promise( (resolve, reject) => {
-                this.axios.get(this.API.mv + '?mvid=' + this.$route.query.id).then( ( data ) => {
+                this.axios.get(this.API.mv + '?mvid=' + this.mvId).then( ( data ) => {
                     resolve();
                     this.mv = data.data.data;
                     console.log(this.mv);
@@ -132,12 +149,21 @@ export default {
             });
         },
 
-        // 获取mv评论信息
+        // 获取评论信息
         getMvCommit() {
-            this.axios.get(this.API.commentMv + '?id=' + this.$route.query.id).then( ( data ) => {
+            this.axios.get(this.API.commentMv + '?id=' + this.mvId).then( ( data ) => {
                 this.isLoading1 = false;
                 this.commentList = data.data.hotComments;
                 console.log(data.data.hotComments);
+            });
+        },
+
+        // 获取相似mv
+        getSimiMv() {
+            this.axios.get(this.API.simiMv + '?mvid=' + this.mvId).then( ( data ) => {
+                this.isLoading1 = false;
+                this.simiMvList = data.data.mvs;
+                console.log(data.data);
             });
         },
 
@@ -145,18 +171,36 @@ export default {
         showDetails1() {
             this.showDetails = true;
             this.showCommit = false;
-            this.showConformMv = false;
+            this.showSimiMv = false;
         },
 
         // 显示评论
         showCommit1() {
             this.showDetails = false;
             this.showCommit = true;
-            this.showConformMv = false;
+            this.showSimiMv = false;
             if ( this.commentList.length === 0 ) {
                 this.isLoading1 = true;
                 this.getMvCommit();
             }
+        },
+
+        // 显示相似mv
+        showSimiMv1() {
+            this.showDetails = false;
+            this.showCommit = false;
+            this.showSimiMv = true;
+            if ( this.simiMvList.length === 0 ) {
+                this.isLoading1 = true;
+                this.getSimiMv();
+            }
+        },
+
+        // 切换mv
+        cutMv(id) {
+            this.mvId = id;
+            this.commentList = this.simiMvList = [];
+            this.getData();
         },
 
         // 控制是否播放
@@ -325,10 +369,10 @@ video {
     height: 20rem;
     overflow-y: auto;
 }
-.commit-item {
+.commit-box .commit-item {
 
 }
-.commit-item .header-img-box {
+.commit-box .commit-item .header-img-box {
     float: left;
     width: 2rem;
     height: 2rem;
@@ -336,16 +380,39 @@ video {
     border-radius: 50%;
     overflow: hidden;
 }
-.commit-main-box {
+.commit-box .commit-main-box {
     float: left;
     margin: 0 0 1rem 1rem;
     width: 20rem;
 }
-.time-nick {
+.commit-box .time-nick {
     color: #808080;
     font-size: .9rem;
 }
 /* 评论结束 */
+
+/* 相似mv开始 */
+.simi-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 8rem;
+    border-bottom: 1px solid #dedede;
+}
+.simi-item .mv-img-box {
+    width: 10rem;
+    height: 5rem;
+}
+.simi-item .mv-img-box img {
+    width: 100%;
+}
+.simi-item .mv-details-box {
+    margin-left: 1rem;
+    width: 13rem;
+    text-align: left;
+}
+/* 相似mv结束 */
+
 
 
 </style>
