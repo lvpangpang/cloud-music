@@ -17,6 +17,9 @@ let API = {
 // 歌单
     highquality : pxy + '/top/playlist/highquality',
 
+// 排行榜
+    topList : pxy + '/top/list',
+
 // 歌单详情
     playlistdetail : pxy + '/playlist/detail',
 

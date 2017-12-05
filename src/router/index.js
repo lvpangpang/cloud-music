@@ -24,6 +24,18 @@ export default new Router({
         },
 
         {
+            path: '/radio',
+            name: 'radio',
+            component: resolve => require(['../pages/radio.vue'], resolve)
+        },
+
+        {
+            path: '/rank',
+            name: 'rank',
+            component: resolve => require(['../pages/rank.vue'], resolve)
+        },
+
+        {
             path: '/songListDetails',
             name: 'songListDetails',
             component: resolve => require(['../pages/songListDetails.vue'], resolve)

@@ -7,8 +7,8 @@
         <nav class="nav-box" v-if="activeIndex<=4">
             <router-link to="/recommend" class="nav-item" :class="{active : activeIndex===0}">个性推荐</router-link>
             <router-link :to="'/songList?cat=' + chooseClass" class="nav-item" :class="{active : activeIndex===1}">歌单</router-link>
-            <router-link to="/" class="nav-item" :class="{active : activeIndex===2}">主播电台</router-link>
-            <router-link to="/" class="nav-item" :class="{active : activeIndex===3}">排行榜</router-link>
+            <router-link to="radio" class="nav-item" :class="{active : activeIndex===2}">主播电台</router-link>
+            <router-link to="/rank" class="nav-item" :class="{active : activeIndex===3}">排行榜</router-link>
         </nav>
 
         <transition name="fade">
@@ -47,6 +47,7 @@ export default {
     },
 
     watch: {
+        // 监听当前路由变化
         '$route' (to, from) {
             setTimeout(function() {
                 document.body.scrollTop = document.documentElement.scrollTop =  0;
@@ -58,6 +59,12 @@ export default {
                     break;
                 case 'songList':
                     this.activeIndex = 1;
+                    break;
+                case 'radio':
+                    this.activeIndex = 2;
+                    break;
+                case 'rank':
+                    this.activeIndex = 3;
                     break;
                 case 'searchResult':
                     this.searching = false;
