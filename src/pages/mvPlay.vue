@@ -1,6 +1,5 @@
 <template>
-<div class="com-nav-top">
-
+<div class="mv-play-top">
     <navHeader :name="mv.name"></navHeader>
     <loading :isLoading="isLoading"></loading>
 
@@ -20,13 +19,16 @@
     </div>
 
     <div class="details-nav" v-if="mv.brs">
-        <a href="javascript:;" class="nav-item active">详情</a>
-        <a href="javascript:;" class="nav-item">评论</a>
+        <a href="javascript:;" class="nav-item" @click="showDetails1" :class="{active : showDetails}">详情</a>
+        <a href="javascript:;" class="nav-item" @click="showCommit1" :class="{active : showCommit}">评论</a>
         <a href="javascript:;" class="nav-item">相关MV</a>
     </div>
 
     <div class="details-box" v-if="mv.brs">
-        <div class="detail-box">
+        <loading :isLoading="isLoading1"></loading>
+
+        <!-- 详情 -->
+        <div class="detail-box" v-show="showDetails">
             <div class="header-box">
                 <div class="name-author">
                     <p v-html="mv.name" class="mv-name"></p>
@@ -43,6 +45,24 @@
                 <p v-html="mv.desc"></p>
             </div>
         </div>
+
+        <!-- 评论 -->
+        <div v-show="showCommit" class="commit-box">
+            <p class="wonderful-comments">精彩评论</p>
+            <div class="commit-item clearfix" v-for="(item, index) in commentList" key={{index}}>
+                <div class="header-img-box">
+                    <img :src="item.user&&item.user.avatarUrl" alt="" />
+                </div>
+                <div class="commit-main-box">
+                    <div class="time-nick">
+                        <p v-html="item.user&&item.user.nickname"></p>
+                        <p v-html="setTime(item.time)"></p>
+                    </div>
+                    <div v-html="item.content"></div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 </div>
@@ -59,10 +79,15 @@ export default {
     data() {
         return {
             isLoading : true,
+            isLoading1 : false,//控制下面tab切换
             mv : {},
             currentTime : 0,
             isPlayMv : true,
-            isAllScreen : false
+            isAllScreen : false,
+            commentList : [],
+            showDetails : true,
+            showCommit : false,
+            showConformMv : false
         }
     },
 
@@ -96,6 +121,7 @@ export default {
             });
         },
 
+        // 获取MV信息
         getMv() {
             return new Promise( (resolve, reject) => {
                 this.axios.get(this.API.mv + '?mvid=' + this.$route.query.id).then( ( data ) => {
@@ -104,6 +130,33 @@ export default {
                     console.log(this.mv);
                 });
             });
+        },
+
+        // 获取mv评论信息
+        getMvCommit() {
+            this.axios.get(this.API.commentMv + '?id=' + this.$route.query.id).then( ( data ) => {
+                this.isLoading1 = false;
+                this.commentList = data.data.hotComments;
+                console.log(data.data.hotComments);
+            });
+        },
+
+        // 显示详情
+        showDetails1() {
+            this.showDetails = true;
+            this.showCommit = false;
+            this.showConformMv = false;
+        },
+
+        // 显示评论
+        showCommit1() {
+            this.showDetails = false;
+            this.showCommit = true;
+            this.showConformMv = false;
+            if ( this.commentList.length === 0 ) {
+                this.isLoading1 = true;
+                this.getMvCommit();
+            }
         },
 
         // 控制是否播放
@@ -125,6 +178,12 @@ export default {
             return (mins < 10 ? ('0' + mins) : mins)   + ':' + (sec < 10 ? ('0' + sec) : sec);
         },
 
+        // 设置YY-MM-DD时间格式
+        setTime(secs) {
+            var secs = new Date(secs);
+            return secs.getFullYear() + '年' + (secs.getMonth() + 1) + '月' + secs.getDate() + '日';
+        },
+
         // 是否全屏
         setAllScreen() {
             let video = document.getElementById('video');
@@ -144,8 +203,18 @@ export default {
 </script>
 
 <style scoped>
+.wonderful-comments {
+    padding: 1rem;
+}
+.mv-play-top {
+    margin-top: 25rem;
+}
 .play-box {
-    position: relative;
+    position: fixed;
+    left: 0;
+    top: 3rem;
+    width: 100%;
+    height: 19rem;
 }
 .operate-box {
     display: flex;
@@ -216,6 +285,10 @@ video {
 
 /* 导航开始 */
 .details-nav {
+    position: fixed;
+    left: 0;
+    top: 22rem;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -246,5 +319,33 @@ video {
     padding: 1rem;
 }
 /* 导航结束 */
+
+/* 评论开始 */
+.commit-box {
+    height: 20rem;
+    overflow-y: auto;
+}
+.commit-item {
+
+}
+.commit-item .header-img-box {
+    float: left;
+    width: 2rem;
+    height: 2rem;
+    margin: .5rem;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.commit-main-box {
+    float: left;
+    margin: 0 0 1rem 1rem;
+    width: 20rem;
+}
+.time-nick {
+    color: #808080;
+    font-size: .9rem;
+}
+/* 评论结束 */
+
 
 </style>
