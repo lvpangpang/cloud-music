@@ -94,19 +94,23 @@ export default {
 
     methods : {
 
-        async getData() {
+        getData() {
             // await后面要返回一个promise对象
-            await this.getBanner();
-            await this.getSongList();
-            await this.getMvList();
-            // await Promise.all( [this.getBanner(), this.getSongList()]).then( () => {
 
-            // });
-            this.isLoading = false;
-            this.date = (new Date(this.date)).getDate();
-            this.$nextTick(() => {
-                new lazyImg();
+            // 方法1
+            /*await this.getBanner();
+            await this.getSongList();
+            await this.getMvList();*/
+
+            // 方法二
+            Promise.all( [this.getBanner(), this.getSongList(), this.getMvList()]).then( () => {
+                this.isLoading = false;
+                this.date = (new Date(this.date)).getDate();
+                this.$nextTick(() => {
+                    new lazyImg();
+                });
             });
+
         },
 
         getBanner() {
