@@ -15,6 +15,9 @@
             <router-view></router-view>
         </transition>
 
+        <!-- 公共提示组件 -->
+        <toast></toast>
+
         <!-- 搜索组件 -->
         <transition name="show-search">
             <search v-show="searching" v-on:setSearch="setSearch"></search>
@@ -34,6 +37,7 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 import search from '@/pages/search';
+import toast from '@/components/toast';
 import login from '@/pages/login';
 export default {
     name: 'app',
@@ -92,7 +96,8 @@ export default {
 
     components: {
         search,
-        login
+        login,
+        toast
     },
 
     methods : {

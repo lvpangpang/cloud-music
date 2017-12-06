@@ -37,8 +37,21 @@ export default {
         ]),
 
         login() {
-            this.axios.get(this.API.login + '?phone=' + this.phone + '&password=' + this.password).then( ( data ) => {
-                console.log(data);
+            if ( this.phone===''||this.pwd==='' ) {
+                return;
+            }
+            this.axios.get(this.API.login + '?phone=' + this.phone + '&password=' + this.pwd).then( ( data ) => {
+                var data = data.data;
+                if ( data.code === 200 ) {
+                    window.$toast({
+                        msg : '登录成功'
+                    });
+                    this.setShowLogin1(false);
+                } else {
+                    window.$toast({
+                        msg : data.msg
+                    });
+                }
             });
         }
     },
