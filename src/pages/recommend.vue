@@ -15,7 +15,7 @@
             <p>私人FM</p>
         </router-link>
         <router-link :to="'/hot?theme'" class="nav-item">
-            <div class="nav-top nav-text">16</div>
+            <div class="nav-top nav-text" v-html="date"></div>
             <p>每日歌曲推荐</p>
         </router-link>
         <router-link :to="'/play?id='+ playSongId + '&back=1'" class="nav-item">
@@ -74,7 +74,8 @@ export default {
             isLoading : true,
             bannerList : [],
             songList : [],
-            mvList : []
+            mvList : [],
+            date : null,
         }
     },
 
@@ -102,6 +103,7 @@ export default {
 
             // });
             this.isLoading = false;
+            this.date = (new Date(this.date)).getDate();
             this.$nextTick(() => {
                 new lazyImg();
             });
@@ -110,8 +112,10 @@ export default {
         getBanner() {
             return new Promise( (resolve, reject) => {
                 this.axios.get(this.API.banner).then( ( data ) => {
+                    console.log(data.headers.date);
                     resolve();
                     let data1 = data.data;
+                    this.date = data.headers.date;
                     this.bannerList = data1.banners;
                 });
             });
@@ -130,7 +134,6 @@ export default {
             return new Promise( (resolve, reject) => {
                 this.axios.get(this.API.personalizedMv).then( ( data ) => {
                     resolve();
-                    console.log(data.data);
                     this.mvList = data.data.result;
                 });
             });

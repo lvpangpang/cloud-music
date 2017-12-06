@@ -1,6 +1,9 @@
 let pxy = '/api';
 let API = {
 
+// 登录相关
+    loginRefresh : pxy + '/login/refresh',
+
 // 个性推荐
     // banner信息
     banner : pxy +  '/banner',

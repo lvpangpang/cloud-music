@@ -5,6 +5,9 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
     state : {
 
+        // 是否登录
+        isLogin : false,
+
         // 是否正在播放
         isPlay : true,
 
@@ -30,6 +33,10 @@ const store = new Vuex.Store({
         currentTime1 : 0 ,
     },
     mutations : {
+
+        setLogin(state, flag) {
+            state.isLogin = flag;
+        },
 
         setCurrentTime( state, time ) {
             state.currentTime1 = time;
@@ -82,6 +89,10 @@ const store = new Vuex.Store({
 
     },
     actions: {
+
+        setLogin1( context, flag ) {
+            context.commit('setLogin', flag);
+        },
 
         setCurrentTime1( context, time ) {
             context.commit('setCurrentTime', time);

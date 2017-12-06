@@ -12,10 +12,27 @@ Vue.prototype.axios = axios;
 Vue.prototype.API = API;
 Vue.prototype.commonMethods = commonMethods;
 
-new Vue({
-    el:'#app',
-    store,
-    router,
-    template: '<App/>',
-    components: { App }
-});
+// 先获取用户登录状态
+// axios.post(API.loginRefresh).then( ( data ) => {
+
+//     store.dispatch('setLogin1', data.data.msg);
+
+//     // 需要登录权限的组件权限控制
+//     router.beforeEach((to, from, next) => {
+//         let loginArr = ['my', 'shopCar', 'order'];
+//         if ( loginArr.join(",").indexOf(to.name) !==-1 && store.state.isLogin ==! null  ) {
+//             next('login');
+//         }
+//         next();
+//     });
+
+    new Vue({
+        el: '#app',
+        router,
+        store,
+        template: '<App/>',
+        components: {
+            App
+        }
+    });
+// });

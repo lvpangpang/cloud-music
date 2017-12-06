@@ -20,6 +20,11 @@
             <search v-show="searching" v-on:setSearch="setSearch"></search>
         </transition>
 
+        <!-- 登录组件 -->
+        <transition name="show-search">
+            <login v-show="searching" v-on:setLogin="setLogin"></login>
+        </transition>
+
         <!-- 音乐播放 -->
         <audio :src='playSong.url' controls="controls" preload id="music" hidden></audio>
 
@@ -29,12 +34,14 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 import search from '@/pages/search';
+import login from '@/pages/login';
 export default {
     name: 'app',
     data() {
         return {
             activeIndex: 999,
             searching : false,
+            login: false
         }
     },
     computed : {
@@ -84,12 +91,16 @@ export default {
     },
 
     components: {
-        search
+        search,
+        login
     },
 
     methods : {
         setSearch() {
             this.searching = !this.searching;
+        },
+        setLogin() {
+            this.login = !this.login;
         }
 
     }
