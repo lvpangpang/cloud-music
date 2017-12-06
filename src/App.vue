@@ -117,14 +117,14 @@ export default {
     transition: all .3s ease;
 }
 .show-search-enter {
-    transform: translateY(50px);
+    transform: translateY(100%);
 }
 .show-login-enter {
     transform: translateX(100%);
 }
 /* 2.1.8以上只能用leave-to */
 .show-search-leave-to {
-    transform: translateY(600px);
+    transform: translateY(100%);
 }
 .show-login-leave-to {
     transform: translateX(100%);

@@ -33,7 +33,8 @@ export default {
 
     methods: {
         ...mapActions([
-            'setShowLogin1'
+            'setShowLogin1',
+            'setLogin1'
         ]),
 
         login() {
@@ -47,6 +48,7 @@ export default {
                         msg : '登录成功'
                     });
                     this.setShowLogin1(false);
+                    this.setLogin1(true);
                 } else {
                     window.$toast({
                         msg : data.msg
