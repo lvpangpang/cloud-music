@@ -2,9 +2,9 @@
 <div class=" login-box">
     <a href="javascript:;" class="close-btn" @click="setShowLogin1(false)"></a>
     <div class="login-main">
-        <input type="tel" placeholder="手机号" class="info-item" />
-        <input type="password" placeholder="密码" class="info-item" />
-        <a href="javascript:;" class="login-btn">登录</a>
+        <input type="tel" placeholder="手机号" class="info-item" v-model="phone" />
+        <input type="password" placeholder="密码" class="info-item" v-model="pwd" />
+        <a href="javascript:;" class="login-btn" :class="{active : phone!==''&&pwd!==''}" @click="login">登录</a>
     </div>
 
 </div>
@@ -18,7 +18,8 @@ export default {
     name: 'songList',
     data() {
         return {
-            isLoading : true
+            phone : '',
+            pwd : ''
         }
     },
     computed : {
@@ -33,7 +34,13 @@ export default {
     methods: {
         ...mapActions([
             'setShowLogin1'
-        ])
+        ]),
+
+        login() {
+            this.axios.get(this.API.login + '?phone=' + this.phone + '&password=' + this.password).then( ( data ) => {
+                console.log(data);
+            });
+        }
     },
 
     components: {
@@ -78,10 +85,14 @@ export default {
     margin: 2rem auto;
     width: 5rem;
     line-height: 2rem;
-    background: #d43c33;
+    background: #efefef;
     border-radius: 4px;
-    color: #fff;
+    color: #333;
     text-align: center;
+}
+.active {
+    background: #d43c33;
+    color: #fff;
 }
 
 </style>

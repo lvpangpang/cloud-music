@@ -2,7 +2,10 @@ let pxy = '/api';
 let API = {
 
 // 登录相关
+    // 判断登录权限
     loginRefresh : pxy + '/login/refresh',
+    login : pxy + '/login/cellphone',
+
 
 // 个性推荐
     // banner信息
