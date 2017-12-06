@@ -115,7 +115,7 @@ export default {
     transform: translateY(50px);
 }
 .show-login-enter {
-    transform: translateX(0);
+    transform: translateX(100%);
 }
 /* 2.1.8以上只能用leave-to */
 .show-search-leave-to {

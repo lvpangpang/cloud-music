@@ -14,12 +14,9 @@ Vue.prototype.commonMethods = commonMethods;
 
 // 先获取用户登录状态
 axios.get(API.loginRefresh).then( ( data ) => {
-
     store.dispatch('setLogin1', data.data.msg);
-
     // 需要登录权限的组件权限控制
     router.beforeEach((to, from, next) => {
-        console.log(to.name);
         let loginArr = ['dailySongs', 'shopCar', 'order'];
         if ( loginArr.join(",").indexOf(to.name) !==-1 && store.state.isLogin === null  ) {
             store.dispatch('setShowLogin1', true);
@@ -27,7 +24,6 @@ axios.get(API.loginRefresh).then( ( data ) => {
             next();
         }
     });
-
     new Vue({
         el: '#app',
         router,
@@ -37,5 +33,4 @@ axios.get(API.loginRefresh).then( ( data ) => {
             App
         }
     });
-
 });

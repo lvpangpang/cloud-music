@@ -3,7 +3,6 @@ let API = {
 
 // 登录相关
     loginRefresh : pxy + '/login/refresh',
-    recommendSongs : pxy + '/recommend/songs',
 
 // 个性推荐
     // banner信息
@@ -17,6 +16,9 @@ let API = {
 
     // 最新音乐
     newsong : pxy + '/personalized/newsong',
+
+    //当日推荐音乐（需要登录）
+    recommendSongs : pxy + '/recommend/songs',
 
 // 歌单
     highquality : pxy + '/top/playlist/highquality',
