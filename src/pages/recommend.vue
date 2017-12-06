@@ -14,7 +14,7 @@
             <img src="../images/fm.png" class="nav-top" />
             <p>私人FM</p>
         </router-link>
-        <router-link to="dailySongs" class="nav-item">
+        <router-link :to="'dailySongs?date='+ date" class="nav-item">
             <div class="nav-top nav-text" v-html="date"></div>
             <p>每日歌曲推荐</p>
         </router-link>
