@@ -63,6 +63,12 @@ export default new Router({
             path: '/mvPlay',
             name: 'mvPlay',
             component: resolve => require(['../pages/mvPlay.vue'], resolve)
+        },
+
+        {
+            path: '/dailySongs',
+            name: 'dailySongs',
+            component: resolve => require(['../pages/dailySongs.vue'], resolve)
         }
     ]
 });

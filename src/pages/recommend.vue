@@ -14,7 +14,7 @@
             <img src="../images/fm.png" class="nav-top" />
             <p>私人FM</p>
         </router-link>
-        <router-link :to="'/hot?theme'" class="nav-item">
+        <router-link to="dailySongs" class="nav-item">
             <div class="nav-top nav-text" v-html="date"></div>
             <p>每日歌曲推荐</p>
         </router-link>
@@ -112,7 +112,6 @@ export default {
         getBanner() {
             return new Promise( (resolve, reject) => {
                 this.axios.get(this.API.banner).then( ( data ) => {
-                    console.log(data.headers.date);
                     resolve();
                     let data1 = data.data;
                     this.date = data.headers.date;

@@ -8,6 +8,9 @@ const store = new Vuex.Store({
         // 是否登录
         isLogin : false,
 
+        // 是否显示登录组件
+        isShowLogin : false,
+
         // 是否正在播放
         isPlay : true,
 
@@ -36,6 +39,10 @@ const store = new Vuex.Store({
 
         setLogin(state, flag) {
             state.isLogin = flag;
+        },
+
+        setShowLogin(state, flag) {
+            state.isShowLogin = flag;
         },
 
         setCurrentTime( state, time ) {
@@ -92,6 +99,10 @@ const store = new Vuex.Store({
 
         setLogin1( context, flag ) {
             context.commit('setLogin', flag);
+        },
+
+        setShowLogin1( context, flag ) {
+            context.commit('setShowLogin', flag);
         },
 
         setCurrentTime1( context, time ) {

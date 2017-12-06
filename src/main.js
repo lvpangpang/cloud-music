@@ -13,18 +13,20 @@ Vue.prototype.API = API;
 Vue.prototype.commonMethods = commonMethods;
 
 // 先获取用户登录状态
-// axios.post(API.loginRefresh).then( ( data ) => {
+axios.get(API.loginRefresh).then( ( data ) => {
 
-//     store.dispatch('setLogin1', data.data.msg);
+    store.dispatch('setLogin1', data.data.msg);
 
-//     // 需要登录权限的组件权限控制
-//     router.beforeEach((to, from, next) => {
-//         let loginArr = ['my', 'shopCar', 'order'];
-//         if ( loginArr.join(",").indexOf(to.name) !==-1 && store.state.isLogin ==! null  ) {
-//             next('login');
-//         }
-//         next();
-//     });
+    // 需要登录权限的组件权限控制
+    router.beforeEach((to, from, next) => {
+        console.log(to.name);
+        let loginArr = ['dailySongs', 'shopCar', 'order'];
+        if ( loginArr.join(",").indexOf(to.name) !==-1 && store.state.isLogin === null  ) {
+            store.dispatch('setShowLogin1', true);
+        } else {
+            next();
+        }
+    });
 
     new Vue({
         el: '#app',
@@ -35,4 +37,5 @@ Vue.prototype.commonMethods = commonMethods;
             App
         }
     });
-// });
+
+});

@@ -21,8 +21,8 @@
         </transition>
 
         <!-- 登录组件 -->
-        <transition name="show-search">
-            <login v-show="searching" v-on:setLogin="setLogin"></login>
+        <transition name="show-login">
+            <login v-show="isShowLogin"></login>
         </transition>
 
         <!-- 音乐播放 -->
@@ -40,12 +40,12 @@ export default {
     data() {
         return {
             activeIndex: 999,
-            searching : false,
-            login: false
+            searching : false
         }
     },
     computed : {
         ...mapState([
+            'isShowLogin',
             'isPlay',
             'historyList',
             'playSongId',
@@ -98,9 +98,6 @@ export default {
     methods : {
         setSearch() {
             this.searching = !this.searching;
-        },
-        setLogin() {
-            this.login = !this.login;
         }
 
     }
@@ -109,18 +106,26 @@ export default {
 
 <style scoped>
 .show-search-enter-active,
-.show-search-leave-active {
+.show-search-leave-active,
+.show-login-enter-active,
+.show-login-leave-active {
     transition: all .3s ease;
 }
 .show-search-enter {
     transform: translateY(50px);
 }
+.show-login-enter {
+    transform: translateX(0);
+}
 /* 2.1.8以上只能用leave-to */
 .show-search-leave-to {
     transform: translateY(600px);
 }
+.show-login-leave-to {
+    transform: translateX(100%);
+}
 .fade-enter-active {
-    transition: all .4s ease;
+    transition: all .3s ease;
 }
 .fade-enter {
     opacity: 0;
@@ -164,7 +169,7 @@ export default {
 }
 .nav-box .nav-item {
     line-height: 3rem;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     padding: 0 .5rem;
     text-align: center;
     color: #333;

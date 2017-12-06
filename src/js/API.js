@@ -3,6 +3,7 @@ let API = {
 
 // 登录相关
     loginRefresh : pxy + '/login/refresh',
+    recommendSongs : pxy + '/recommend/songs',
 
 // 个性推荐
     // banner信息

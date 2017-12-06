@@ -1,6 +1,11 @@
 <template>
-<div class="com-nav-top">
-    <navHeader name="登录"></navHeader>
+<div class=" login-box">
+    <a href="javascript:;" class="close-btn" @click="setShowLogin1(false)"></a>
+    <div class="login-main">
+        <input type="tel" placeholder="手机号" class="info-item" />
+        <input type="password" placeholder="密码" class="info-item" />
+        <a href="javascript:;" class="login-btn">登录</a>
+    </div>
 
 </div>
 </template>
@@ -18,11 +23,17 @@ export default {
     },
     computed : {
         ...mapState([
-            'chooseClass'
+            'isShowLogin',
         ])
     },
 
     mounted() {
+    },
+
+    methods: {
+        ...mapActions([
+            'setShowLogin1'
+        ])
     },
 
     components: {
@@ -32,60 +43,45 @@ export default {
 </script>
 
 <style scoped>
-.com-nav-top {
-    margin-top: 4rem;
-}
-.all-songs {
-    position: relative;
-    display: block;
-    width: 90%;
-    line-height: 3rem;
-    margin: 0 auto;
-    border: 1px solid #dedede;
-    border-radius: 3px;
-    font-size: 1.3rem;
-    background: #fff;
-    color: #333;
-    text-align: center;
-}
-.cat-box {
-    width: 90%;
-    margin: 1rem auto 0;
-    border-left: 1px solid #dedede;
-    border-top: 1px solid #dedede;
-    background: #fff;
-}
-.cat-header {
-    float: left;
-    width: 25%;
-    height: 4rem;
-    line-height: 4rem;
-    font-size: 1.2rem;
-    color: #d43c33;
-    text-align: center;
-    border-right: 1px solid #dedede;
-    border-bottom: 1px solid #dedede;
-}
-.cat-item {
-    position: relative;
-    float: left;
-    width: 25%;
-    height: 2rem;
-    line-height: 2rem;
-    text-align: center;
-    color: #333;
-    border-right: 1px solid #dedede;
-    border-bottom: 1px solid #dedede;
-}
-.active:after {
-    content: '';
-    position: absolute;
-    left: -1px;
-    top: -1px;
-    z-index: 1;
+
+.login-box {
+    position: fixed;
+    z-index: 1001;
+    left: 0;
+    top: 0;
     width: 100%;
     height: 100%;
-    border: 1px solid #d43c33;
-    color: #d43c33;
+    background: #fff;
 }
+.close-btn {
+    float: right;
+    margin: 1rem;
+    width: 2rem;
+    height: 2rem;
+    background: url(../images/close.png) no-repeat center / 2rem 2rem;
+}
+.login-main {
+    width: 90%;
+    height: 10rem;
+    margin: 5rem auto;
+}
+.info-item {
+    display: block;
+    width: 70%;
+    margin: 0 auto;
+    border: none;
+    height: 3rem;
+    border-bottom: 1px solid #dedede ;
+}
+.login-btn {
+    display: block;
+    margin: 2rem auto;
+    width: 5rem;
+    line-height: 2rem;
+    background: #d43c33;
+    border-radius: 4px;
+    color: #fff;
+    text-align: center;
+}
+
 </style>
