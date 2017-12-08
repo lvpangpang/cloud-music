@@ -1,15 +1,20 @@
 <template>
 <div class="com-body-top">
     <loading :isLoading="isLoading"></loading>
-    未完待续...
+    <div class="clearfix">
+        <router-link :to="'dasd?id=' + item.id" v-for="(item, index) in radioList" class="radio-item">
+            <div class="img-box">
+                <img :src="item.picUrl" alt="" />
+            </div>
+            <p v-html="item.name" class="name"></p>
+        </router-link>
+    </div>
 </div>
 </template>
 
 <script>
-import Vue from 'vue';
 import { mapState, mapActions } from 'vuex';
 import loading from '@/components/loading';
-import '@/js/img-lazy';
 
 export default {
     name : 'index',
@@ -17,9 +22,7 @@ export default {
     data() {
         return {
             isLoading : true,
-            bannerList : [],
-            songList : [],
-            mvList : []
+            radioList : []
         }
     },
 
@@ -39,20 +42,19 @@ export default {
     methods : {
 
         async getData() {
-            // await后面要返回一个promise对象
-            await this.getBanner();
-            this.isLoading = false;
-            this.$nextTick(() => {
-                new lazyImg();
+            this.getRadio().then( () => {
+                this.isLoading = false;
+                this.$nextTick(() => {
+                    new lazyImg();
+                });
             });
         },
 
-        getBanner() {
+        getRadio() {
             return new Promise( (resolve, reject) => {
-                this.axios.get(this.API.topList + '?idx=0').then( ( data ) => {
+                this.axios.get(this.API.djprogram).then( ( data ) => {
                     resolve();
-                    let data1 = data.data;
-                    console.log(data1);
+                    this.radioList = data.data.result;
                 });
             });
         }
@@ -66,5 +68,20 @@ export default {
 </script>
 
 <style scoped>
+.radio-item {
+    float: left;
+    width: 48%;
+    height: 16rem;
+    color: #333;
+    margin: 0 0 1rem 1.33%;
+}
+.radio-item .img-box {
+    width: 100%;
+}
+.radio-item .name {
+    height: 5rem;
+    line-height: 2rem;
+    overflow: hidden;
+}
 
 </style>

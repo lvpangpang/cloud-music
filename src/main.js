@@ -15,7 +15,7 @@ Vue.prototype.commonMethods = commonMethods;
 
 // 先获取用户登录状态
 axios.get(API.recommendSongs).then( ( data ) => {
-    console.log(data);
+    // console.log(data);
     if ( data.data.code === 200 ) {
         store.dispatch('setLogin1', true);
     }

@@ -4,6 +4,7 @@ let API = {
 // 登录相关
     // 判断登录权限
     loginRefresh : pxy + '/login/refresh',
+    //登录
     login : pxy + '/login/cellphone',
 
 
@@ -45,7 +46,10 @@ let API = {
     mv : pxy + '/mv',
     mvUrl : pxy + '/mv/url',
     commentMv : pxy + '/comment/mv',
-    simiMv : pxy + '/simi/mv'
+    simiMv : pxy + '/simi/mv',
+
+// 电台
+    djprogram : pxy + '/personalized/djprogram'
 
 };
 export default API;
