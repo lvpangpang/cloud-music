@@ -1,7 +1,10 @@
 <template>
-<div class="com-nav-top">
+<div class="play-box" :class="{hide : !isShowPlay}">
     <img :src="songDetail.al.picUrl" class="bg" v-if="songDetail.al" />
-    <navHeader :name="songDetail.name"></navHeader>
+    <div class="nav-box">
+        <a href="javascript:;" class="back-btn" @click="setIsShowPlay1(false)"></a>
+        <h1 v-html="songDetail.name" class="name"></h1>
+    </div>
     <loading :isLoading="isLoading"></loading>
     <div class="show-box">
         <div class="pendant" v-if="!showWords"></div>
@@ -47,7 +50,7 @@
             </div>
         </div>
     </transition>
-    <!-- <audio :src='playSong.url' controls="controls" preload id="music" hidden></audio> -->
+    <audio controls="controls" preload id="music" hidden></audio>
 
 </div>
 </template>
@@ -58,6 +61,13 @@ import loading from '@/components/loading';
 import navHeader from '@/components/nav';
 export default {
     name: 'app',
+
+    props : {
+        isShowPlay1 : {
+            type : Boolean
+        }
+    },
+
     data() {
         return {
             isLoading : true,
@@ -79,12 +89,21 @@ export default {
             'playSongId',
             'playSongIndex',
             'isBelong',
-            'currentTime1'
+            'isShowPlay'
         ])
     },
 
+    watch: {
+        playSongId() {
+            if ( this.playSongId ) {
+                this.goPlay(this.playSongId);
+            }
+        }
+    },
+
+
     mounted() {
-        this.goPlay(this.$route.query.id);
+        this.goPlay(this.playSongId);
     },
 
     components: {
@@ -100,7 +119,7 @@ export default {
             'setPlaySongIndex1',
             'setPlaySong1',
             'setIsBelong1',
-            'setCurrentTime1'
+            'setIsShowPlay1'
         ]),
 
         // 控制歌词显示
@@ -167,9 +186,7 @@ export default {
                     songName : this.songDetail.name
                 });
                 let audio = document.getElementById('music');
-                if ( this.$route.query.back ) {
-                    audio.currentTime = this.currentTime1;
-                }
+
                 this.play();
             });
         },
@@ -249,7 +266,6 @@ export default {
             // 歌词同步
             setInterval( () => {
                 this.currentTime = parseInt(audio.currentTime);
-                this.setCurrentTime1(this.currentTime);
                 move.style.webkitTransform = 'translate3d('+ audio.currentTime/audio.duration * 250 +'px, 0px,0px)';
                 if ( this.isPlay ) {
                     this.songTimeList.forEach( (item, index, arr) => {
@@ -300,6 +316,37 @@ export default {
 </script>
 
 <style scoped>
+.nav-box {
+    position: fixed;
+    z-index:1001;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 3rem;
+    line-height: 3rem;
+    background: #d43c33;
+}
+.back-btn {
+    position: absolute;
+    left: .7rem;
+    top: .5rem;
+    width: 2rem;
+    height: 2rem;
+    background: url(../images/back1.png) no-repeat center / 2rem 2rem;
+}
+.name {
+    text-align: center;
+    color: #fff;
+    font-size: 1.2rem;
+}
+.play-box {
+    position: fixed;
+    z-index: 1001;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
 .bg {
     position: absolute;
     left: 0;
@@ -525,5 +572,8 @@ export default {
 }
 /* 歌词结束 */
 
+.hide {
+    transform: translateY(100%);
+}
 </style>
 

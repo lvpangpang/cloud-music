@@ -28,8 +28,12 @@
             <login v-show="isShowLogin"></login>
         </transition>
 
-        <!-- 音乐播放 -->
-        <audio :src='playSong.url' controls="controls" preload id="music" hidden></audio>
+        <!-- <audio :src='playSong.url' controls="controls" preload id="music" hidden></audio> -->
+
+        <!-- 播放音乐 -->
+        <transition name="show-login">
+            <play></play>
+        </transition>
 
     </div>
 </template>
@@ -39,6 +43,8 @@ import { mapState, mapActions } from 'vuex';
 import search from '@/pages/search';
 import toast from '@/components/toast';
 import login from '@/pages/login';
+import play from '@/pages/play';
+
 export default {
     name: 'app',
     data() {
@@ -49,6 +55,7 @@ export default {
     },
     computed : {
         ...mapState([
+            'isShowPlay',
             'isShowLogin',
             'isPlay',
             'historyList',
@@ -97,7 +104,8 @@ export default {
     components: {
         search,
         login,
-        toast
+        toast,
+        play
     },
 
     methods : {

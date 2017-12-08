@@ -11,6 +11,9 @@ const store = new Vuex.Store({
         // 是否显示登录组件
         isShowLogin : false,
 
+        // 是否显示播放音乐组件
+        isShowPlay : false,
+
         // 是否正在播放
         isPlay : true,
 
@@ -30,19 +33,18 @@ const store = new Vuex.Store({
         historyList : [],
 
         // 选择歌单分类
-        chooseClass : '',
-
-        // 播放进度
-        currentTime1 : 0 ,
+        chooseClass : ''
     },
     mutations : {
 
-        setLogin(state, flag) {
-            state.isLogin = flag;
+        setIsShowPlay ( state, obj ) {
+            console.log(obj.playSongId);
+            state.isShowPlay = obj.flag;
+            state.playSongId = obj.playSongId;
         },
 
-        setShowLogin(state, flag) {
-            state.isShowLogin = flag;
+        setLogin(state, flag) {
+            state.isLogin = flag;
         },
 
         setCurrentTime( state, time ) {
@@ -97,16 +99,16 @@ const store = new Vuex.Store({
     },
     actions: {
 
+        setIsShowPlay1( context, obj ) {
+            context.commit('setIsShowPlay', obj);
+        },
+
         setLogin1( context, flag ) {
             context.commit('setLogin', flag);
         },
 
         setShowLogin1( context, flag ) {
             context.commit('setShowLogin', flag);
-        },
-
-        setCurrentTime1( context, time ) {
-            context.commit('setCurrentTime', time);
         },
 
         setIsBelong1( context, flag ) {

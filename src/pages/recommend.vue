@@ -18,10 +18,10 @@
             <div class="nav-top nav-text" v-html="date"></div>
             <p>每日歌曲推荐</p>
         </router-link>
-        <router-link :to="'/play?id='+ playSongId + '&back=1'" class="nav-item">
+        <a href="javascript:;" class="nav-item" @click="setIsShowPlay1({flag: true, id:playSongId})">
             <img src="../images/hot.gif" class="nav-top" />
             <p>正在播放</p>
-        </router-link>
+        </a>
     </nav>
 
     <div class="recommend-box" v-if="!isLoading">
@@ -93,6 +93,9 @@ export default {
     },
 
     methods : {
+        ...mapActions([
+            'setIsShowPlay1'
+        ]),
 
         getData() {
             // await后面要返回一个promise对象
