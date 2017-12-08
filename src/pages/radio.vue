@@ -2,7 +2,7 @@
 <div class="com-body-top">
     <loading :isLoading="isLoading"></loading>
     <div class="clearfix">
-        <router-link :to="'dasd?id=' + item.id" v-for="(item, index) in radioList" class="radio-item">
+        <router-link :to="'/play?id=478446370'" v-for="(item, index) in radioList" class="radio-item">
             <div class="img-box">
                 <img :src="item.picUrl" alt="" />
             </div>
@@ -42,7 +42,8 @@ export default {
     methods : {
 
         async getData() {
-            this.getRadio().then( () => {
+            this.getRadio().then( (data) => {
+                console.log(data);
                 this.isLoading = false;
                 this.$nextTick(() => {
                     new lazyImg();
@@ -53,7 +54,7 @@ export default {
         getRadio() {
             return new Promise( (resolve, reject) => {
                 this.axios.get(this.API.djprogram).then( ( data ) => {
-                    resolve();
+                    resolve(data.data.result);
                     this.radioList = data.data.result;
                 });
             });
