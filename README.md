@@ -2,7 +2,7 @@
 迟到的网易云音乐
 
 项目视频展示
-<a href="https://pan.baidu.com/play/video#video/path=%2Fcloud-music.mp4&t=-1">项目视频展示链接</a>
+<a href="https://pan.baidu.com/play/video#video/path=%2F2017.12.08-10.02.04.mp4&t=-1">项目视频展示链接(更新版)</a>
 
 # 前言
 
