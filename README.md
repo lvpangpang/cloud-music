@@ -2,7 +2,7 @@
 迟到的网易云音乐
 
 项目视频展示
-<a href="https://pan.baidu.com/play/video#video/path=%2Fcloud-music.mp4&t=-1">项目视频展示链接</a>
+<a href="https://pan.baidu.com/play/video#video/path=%2F2017.12.08-10.02.04.mp4&t=-1">项目视频展示链接(更新版)</a>
 
 # 前言
 
@@ -68,6 +68,9 @@ npm run dev
 - [x] 搜索歌单结果组件 -- 完成
 - [x] 选择歌单分类组件 -- 完成
 - [x] 音乐播放组件 -- 完成
+- [x] mv播放组件 -- 完成(2017年12月8号新增)
+- [x] 登录组件 -- 完成(2017年12月8号新增)
+- [x] 每日歌曲推荐组件（需要登录权限） -- 完成(2017年12月8号新增)
 
 # 部分截图
 
@@ -81,7 +84,9 @@ npm run dev
 
 <img src="https://github.com/lvpangpang/cloud-music/blob/master/images/img%20(9).png" width="300" height="400"/><img src="https://github.com/lvpangpang/cloud-music/blob/master/images/img%20(10).png" width="300" height="400"/>
 
-<img src="https://github.com/lvpangpang/cloud-music/blob/master/images/img%20(11).png" width="300" height="400"/>
+<img src="https://github.com/lvpangpang/cloud-music/blob/master/images/img%20(11).png" width="300" height="400"/><img src="https://github.com/lvpangpang/cloud-music/blob/master/images/img%20(12).png" width="300" height="400"/>
+
+<img src="https://github.com/lvpangpang/cloud-music/blob/master/images/img%20(13).png" width="300" height="400"/>
 
 
 
