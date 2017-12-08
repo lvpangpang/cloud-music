@@ -68,6 +68,10 @@ npm run dev
 - [x] 搜索歌单结果组件 -- 完成
 - [x] 选择歌单分类组件 -- 完成
 - [x] 音乐播放组件 -- 完成
+2017年12月8号新增
+- [x] mv播放组件 -- 完成
+- [x] 登录组件 -- 完成
+- [x] 每日歌曲推荐组件（需要登录权限） -- 完成
 
 # 部分截图
 
@@ -82,6 +86,9 @@ npm run dev
 <img src="https://github.com/lvpangpang/cloud-music/blob/master/images/img%20(9).png" width="300" height="400"/><img src="https://github.com/lvpangpang/cloud-music/blob/master/images/img%20(10).png" width="300" height="400"/>
 
 <img src="https://github.com/lvpangpang/cloud-music/blob/master/images/img%20(11).png" width="300" height="400"/>
+<img src="https://github.com/lvpangpang/cloud-music/blob/master/images/img%20(12).png" width="300" height="400"/>
+
+<img src="https://github.com/lvpangpang/cloud-music/blob/master/images/img%20(13).png" width="300" height="400"/>
 
 
 
