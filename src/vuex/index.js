@@ -38,9 +38,13 @@ const store = new Vuex.Store({
     mutations : {
 
         setIsShowPlay ( state, obj ) {
-            console.log(obj.playSongId);
             state.isShowPlay = obj.flag;
             state.playSongId = obj.playSongId;
+            if ( state.isShowPlay ) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
         },
 
         setLogin(state, flag) {

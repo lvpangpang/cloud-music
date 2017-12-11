@@ -96,6 +96,7 @@ export default {
     watch: {
         playSongId() {
             if ( this.playSongId ) {
+                this.showWords = false;
                 this.goPlay(this.playSongId);
             }
         }
@@ -126,10 +127,12 @@ export default {
         showSongWords() {
             let songWordsDom = document.getElementById('songWords');
             this.showWords = !this.showWords;
-            if ( this.showWords ) {
-                songWordsDom.style.visibility = 'visible';
-            } else {
-                songWordsDom.style.visibility = 'hidden';
+            if ( songWordsDom ) {
+                if ( this.showWords ) {
+                    songWordsDom.style.visibility = 'visible';
+                } else {
+                    songWordsDom.style.visibility = 'hidden';
+                }
             }
         },
 
@@ -196,14 +199,17 @@ export default {
             this.songTimeList = [];
             this.axios.get(this.API.lyric +'?id=' + songId).then( ( data ) => {
                 this.songWords = data.data;
-                this.songWords.lrc.lyric = this.songWords.lrc.lyric.replace(/\n/g,"<br/>").split("<br/>");
-                this.songWords.lrc.lyric.forEach( ( item, index, arr) => {
-                    let time = this.calSeconds(item.slice(item.indexOf('[')+1, item.indexOf(']')));
-                    this.songTimeList.push( time );
-                });
-                this.$nextTick( ()=> {
-                    document.getElementById('songInner').style.WebkitTransform = 'translateY(100px)';
-                });
+                console.log(this.songWords);
+                if ( !this.songWords.nolyric ) {
+                    this.songWords.lrc.lyric = this.songWords.lrc.lyric.replace(/\n/g,"<br/>").split("<br/>");
+                    this.songWords.lrc.lyric.forEach( ( item, index, arr) => {
+                        let time = this.calSeconds(item.slice(item.indexOf('[')+1, item.indexOf(']')));
+                        this.songTimeList.push( time );
+                    });
+                    this.$nextTick( ()=> {
+                        document.getElementById('songInner').style.WebkitTransform = 'translateY(100px)';
+                    });
+                }
             });
         },
 
@@ -353,11 +359,12 @@ export default {
     top: 0;
     width: 100%;
     height: 100%;
-    filter:blur(6px);
+    filter:blur(3px);
 }
 
 .show-box {
     position: relative;
+    margin-top: 3rem;
 }
 .pendant {
     position: absolute;
