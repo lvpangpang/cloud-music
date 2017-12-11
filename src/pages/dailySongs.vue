@@ -18,7 +18,7 @@
                             <span v-html="data.album.name"></span>
                         </p>
                     </div>
-                    <router-link :to="'mvPlay?id=' + data.mvid" class="play-mark" v-if="data.mvid"></router-link>
+                    <a href="javascript:;" class="play-mark" v-if="data.mvid" @click="mvPlay($event, data.mvid)"></a>
                 </div>
             </div>
         </div>
@@ -59,6 +59,10 @@ export default {
                 this.songList = data.data.recommend;
                 this.isLoading = false;
             });
+        },
+        mvPlay(e, id) {
+            e.stopPropagation();
+            this.$router.push({path:'mvPlay?id='+ id});
         }
     }
 }

@@ -33,7 +33,7 @@
                             <span v-html="data.al.name"></span>
                         </p>
                     </div>
-                    <router-link :to="'mvPlay?id=' + data.mv" class="play-mark" v-if="data.mv"></router-link>
+                    <a href="javascript:;" class="play-mark" v-if="data.mv" @click="mvPlay($event, data.mv)"></a>
                 </div>
             </div>
         </div>
@@ -78,7 +78,12 @@ export default {
                 this.songDetails = data.data.playlist;
                 this.isLoading = false;
             });
+        },
+        mvPlay(e, id) {
+            e.stopPropagation();
+            this.$router.push({path:'mvPlay?id='+ id});
         }
+
     }
 }
 </script>

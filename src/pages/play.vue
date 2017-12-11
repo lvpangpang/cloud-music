@@ -200,7 +200,7 @@ export default {
             this.axios.get(this.API.lyric +'?id=' + songId).then( ( data ) => {
                 this.songWords = data.data;
                 console.log(this.songWords);
-                if ( !this.songWords.nolyric ) {
+                if ( this.songWords.nolyric===undefined || !this.songWords.nolyric ) {
                     this.songWords.lrc.lyric = this.songWords.lrc.lyric.replace(/\n/g,"<br/>").split("<br/>");
                     this.songWords.lrc.lyric.forEach( ( item, index, arr) => {
                         let time = this.calSeconds(item.slice(item.indexOf('[')+1, item.indexOf(']')));
