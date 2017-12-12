@@ -1,5 +1,5 @@
 <template>
-<div class="play-box" :class="{hide : !isShowPlay}">
+<div class="play-box" :class="{hide : !isShowPlay}" >
     <img :src="songDetail.al.picUrl" class="bg" v-if="songDetail.al" />
     <div class="nav-box">
         <a href="javascript:;" class="back-btn" @click="setIsShowPlay1(false)"></a>
@@ -199,7 +199,6 @@ export default {
             this.songTimeList = [];
             this.axios.get(this.API.lyric +'?id=' + songId).then( ( data ) => {
                 this.songWords = data.data;
-                console.log(this.songWords);
                 if ( this.songWords.nolyric===undefined || !this.songWords.nolyric ) {
                     this.songWords.lrc.lyric = this.songWords.lrc.lyric.replace(/\n/g,"<br/>").split("<br/>");
                     this.songWords.lrc.lyric.forEach( ( item, index, arr) => {
